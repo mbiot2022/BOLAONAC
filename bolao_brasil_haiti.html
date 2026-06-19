@@ -6,479 +6,186 @@
 <title>Bolão do NAC — Brasil x Haiti</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f5f5;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 24px 12px 40px;
-  }
-
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
-    width: 100%;
-    max-width: 700px;
-    overflow: hidden;
-  }
-
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px 24px 6px;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-  .header-title {
-    font-size: clamp(18px, 4vw, 26px);
-    font-weight: 900;
-    color: #FF4500;
-    letter-spacing: 1px;
-  }
-  .header-center {
-    font-size: clamp(18px, 4vw, 26px);
-    font-weight: 900;
-    color: #FF4500;
-    text-align: center;
-    flex: 1;
-  }
-  .header-right {
-    font-size: clamp(18px, 4vw, 26px);
-    font-weight: 900;
-    color: #FF4500;
-    text-align: right;
-  }
-
-  .subheader {
-    text-align: center;
-    font-size: 15px;
-    color: #FF4500;
-    padding: 0 24px 2px;
-  }
-  .pagar-depois {
-    text-align: right;
-    font-size: 11px;
-    font-weight: 700;
-    color: #FF4500;
-    letter-spacing: 1px;
-    padding: 0 24px 12px;
-  }
-
-  .section-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #222;
-    padding: 6px 24px 4px;
-    letter-spacing: 1px;
-  }
-
-  /* Table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  thead tr {
-    background: #3A5AC8;
-  }
-  thead th {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 11px 20px;
-    text-align: left;
-    letter-spacing: 0.5px;
-  }
-  thead th.col-palpite { text-align: center; }
-  thead th.col-del { width: 40px; }
-
+  body { font-family: Arial, Helvetica, sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 24px 12px 40px; }
+  .card { background: #fff; border-radius: 10px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); width: 100%; max-width: 700px; overflow: hidden; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 6px; flex-wrap: wrap; gap: 4px; }
+  .ht { font-size: clamp(18px,4vw,26px); font-weight: 900; color: #FF4500; letter-spacing: 1px; }
+  .hc { font-size: clamp(18px,4vw,26px); font-weight: 900; color: #FF4500; text-align: center; flex: 1; }
+  .hr { font-size: clamp(18px,4vw,26px); font-weight: 900; color: #FF4500; text-align: right; }
+  .sub { text-align: center; font-size: 15px; color: #FF4500; padding: 0 24px 2px; }
+  .pg { text-align: right; font-size: 11px; font-weight: 700; color: #FF4500; letter-spacing: 1px; padding: 0 24px 12px; }
+  .sl { font-size: 13px; font-weight: 700; color: #222; padding: 6px 24px 4px; letter-spacing: 1px; }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: #3A5AC8; }
+  thead th { color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px; text-align: left; }
+  thead th.cp { text-align: center; }
+  thead th.cd { text-align: center; font-size: 11px; }
+  thead th.cx { width: 40px; }
   tbody tr:nth-child(even) { background: #EBEBEB; }
-  tbody tr:nth-child(odd)  { background: #fff; }
-
-  tbody td {
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #222;
-    border-bottom: none;
-  }
-  tbody td.col-palpite {
-    text-align: center;
-    font-weight: 400;
-    color: #444;
-  }
-  tbody td.col-del {
-    text-align: center;
-    width: 40px;
-  }
-
-  .empty-cell { height: 36px; }
-  .no-palpite { color: #aaa; font-size: 12px; font-weight: 400; }
-
-  .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #bbb;
-    font-size: 16px;
-    line-height: 1;
-    padding: 2px 4px;
-    border-radius: 4px;
-    transition: color 0.15s;
-  }
-  .delete-btn:hover { color: #e00; }
-
-  /* Add button */
-  .add-row {
-    padding: 14px 24px 10px;
-  }
-  .add-btn {
-    padding: 9px 22px;
-    background: #3A5AC8;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background 0.15s;
-  }
-  .add-btn:hover { background: #2a46a0; }
-
-  /* Share bar */
-  .share-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 24px 18px;
-    flex-wrap: wrap;
-  }
-  .share-label {
-    font-size: 12px;
-    color: #888;
-    white-space: nowrap;
-  }
-  .share-input {
-    flex: 1;
-    min-width: 120px;
-    padding: 6px 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #555;
-    background: #f5f5f5;
-    outline: none;
-  }
-  .copy-btn {
-    padding: 7px 16px;
-    background: #FF4500;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s;
-  }
-  .copy-btn:hover { background: #cc3700; }
-
-  /* Modal */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: #fff;
-    border-radius: 12px;
-    padding: 28px 24px 20px;
-    width: 320px;
-    max-width: 90vw;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  }
-  .modal h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 18px;
-    color: #222;
-  }
-  .modal label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: #888;
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-  }
-  .modal input {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1.5px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-bottom: 14px;
-    outline: none;
-    transition: border-color 0.15s;
-    color: #222;
-    background: #fff;
-  }
-  .modal input:focus { border-color: #3A5AC8; }
-  .modal-btns {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-top: 4px;
-  }
-  .modal-btns .cancel-btn {
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #555;
-  }
-  .modal-btns .cancel-btn:hover { background: #f5f5f5; }
-  .modal-btns .confirm-btn {
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    background: #3A5AC8;
-    color: #fff;
-    transition: background 0.15s;
-  }
-  .modal-btns .confirm-btn:hover { background: #2a46a0; }
-
-  /* Toast */
-  .toast {
-    display: none;
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #222;
-    color: #fff;
-    padding: 10px 24px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 300;
-    pointer-events: none;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  }
-
-  @media (max-width: 500px) {
-    .header { flex-direction: column; gap: 2px; }
-    .header-center, .header-right { text-align: left; flex: none; }
-    table { font-size: 12px; }
-    thead th, tbody td { padding: 9px 12px; }
-  }
+  tbody tr:nth-child(odd) { background: #fff; }
+  tbody td { padding: 10px 20px; font-size: 13px; font-weight: 700; color: #222; }
+  tbody td.cp { text-align: center; font-weight: 400; color: #444; }
+  tbody td.cd { text-align: center; font-size: 11px; color: #888; font-weight: 400; }
+  tbody td.cx { text-align: center; width: 40px; }
+  .np { color: #aaa; font-size: 12px; font-weight: 400; }
+  .db { background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; padding: 2px 4px; border-radius: 4px; }
+  .db:hover { color: #e00; }
+  .lr td { text-align: center; padding: 20px; color: #888; font-size: 13px; font-weight: 400; }
+  .ar { padding: 14px 24px 10px; display: flex; align-items: center; gap: 12px; }
+  .ab { padding: 9px 22px; background: #3A5AC8; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .ab:hover { background: #2a46a0; }
+  .rb { background: none; border: none; cursor: pointer; color: #3A5AC8; font-size: 12px; font-weight: 700; text-decoration: underline; }
+  .sb { display: flex; align-items: center; gap: 8px; padding: 8px 24px 18px; flex-wrap: wrap; }
+  .sl2 { font-size: 12px; color: #888; white-space: nowrap; }
+  .si { flex: 1; min-width: 120px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; color: #555; background: #f5f5f5; outline: none; }
+  .cb { padding: 7px 16px; background: #FF4500; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .cb:hover { background: #cc3700; }
+  .mo { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
+  .mo.open { display: flex; }
+  .md { background: #fff; border-radius: 12px; padding: 28px 24px 20px; width: 320px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+  .md h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px; color: #222; }
+  .md label { display: block; font-size: 12px; font-weight: 700; color: #888; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .md input { width: 100%; padding: 9px 12px; border: 1.5px solid #ddd; border-radius: 6px; font-size: 14px; margin-bottom: 14px; outline: none; color: #222; background: #fff; }
+  .md input:focus { border-color: #3A5AC8; }
+  .mb { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+  .mb .cc { padding: 8px 18px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #ddd; background: #fff; color: #555; }
+  .mb .ok { padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; background: #3A5AC8; color: #fff; }
+  .mb .ok:hover { background: #2a46a0; }
+  .mb .ok:disabled { background: #aaa; cursor: not-allowed; }
+  .toast { display: none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 13px; font-weight: 600; z-index: 300; pointer-events: none; }
+  @media (max-width:500px) { .header { flex-direction: column; gap: 2px; } .hc,.hr { text-align: left; flex: none; } thead th, tbody td { padding: 9px 12px; } }
 </style>
 </head>
 <body>
-
 <div class="card">
-
   <div class="header">
-    <div class="header-title">BOLÃO DO NAC</div>
-    <div class="header-center">BRASIL X HAITI</div>
-    <div class="header-right">R$ 10,00</div>
+    <div class="ht">BOLÃO DO NAC</div>
+    <div class="hc">BRASIL X HAITI</div>
+    <div class="hr">R$ 10,00</div>
   </div>
-  <div class="subheader">21/06/2026</div>
-  <div class="pagar-depois">PAGAR DEPOIS</div>
-
-  <div class="section-label">PALPITES</div>
-
+  <div class="sub">21/06/2026</div>
+  <div class="pg">PAGAR DEPOIS</div>
+  <div class="sl">PALPITES</div>
   <table>
     <thead>
       <tr>
         <th>Nome</th>
-        <th class="col-palpite" id="col-header">PALPITE (0 x 0)</th>
-        <th class="col-del"></th>
+        <th class="cp" id="col-header">PALPITE</th>
+        <th class="cd">Horário</th>
+        <th class="cx"></th>
       </tr>
     </thead>
-    <tbody id="bolao-body"></tbody>
+    <tbody id="bolao-body">
+      <tr class="lr"><td colspan="4">Carregando palpites... ⏳</td></tr>
+    </tbody>
   </table>
-
-  <div class="add-row">
-    <button class="add-btn" onclick="openModal()">+ Adicionar palpite</button>
+  <div class="ar">
+    <button class="ab" onclick="openModal()">+ Adicionar palpite</button>
+    <button class="rb" onclick="loadData()">↻ Atualizar</button>
   </div>
-
-  <div class="share-bar">
-    <span class="share-label">🔗 Link para compartilhar:</span>
-    <input class="share-input" type="text" id="share-input" readonly />
-    <button class="copy-btn" onclick="copyLink()">Copiar link</button>
+  <div class="sb">
+    <span class="sl2">🔗 Link para compartilhar:</span>
+    <input class="si" type="text" id="share-input" readonly />
+    <button class="cb" onclick="copyLink()">Copiar link</button>
   </div>
-
 </div>
 
-<!-- Modal -->
-<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
-  <div class="modal">
+<div class="mo" id="modal" onclick="handleOverlayClick(event)">
+  <div class="md">
     <h3>Novo palpite</h3>
-    <label for="input-nome">NOME</label>
-    <input type="text" id="input-nome" placeholder="Seu nome" maxlength="30" autocomplete="off" />
-    <label for="input-palpite">PALPITE (ex: 3 x 1)</label>
-    <input type="text" id="input-palpite" placeholder="Ex: 3 x 1" maxlength="10" />
-    <div class="modal-btns">
-      <button class="cancel-btn" onclick="closeModal()">Cancelar</button>
-      <button class="confirm-btn" onclick="addPalpite()">Salvar</button>
+    <label for="in">NOME</label>
+    <input type="text" id="in" placeholder="Seu nome" maxlength="30" autocomplete="off" />
+    <label for="ip">PALPITE (ex: 3 x 1)</label>
+    <input type="text" id="ip" placeholder="Ex: 3 x 1" maxlength="10" />
+    <div class="mb">
+      <button class="cc" onclick="closeModal()">Cancelar</button>
+      <button class="ok" id="okbtn" onclick="addPalpite()">Salvar</button>
     </div>
   </div>
 </div>
-
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
-const STORAGE_KEY = "bolao_nac_brasil_haiti_2026";
+var API = "https://script.google.com/macros/s/AKfycbwJE4Ohr7gUmIQhOgYgk32P2DfmwbxmNPIhpNdl6v1yi5J-tYNVT8exzUqKoQgWEFoV/exec";
+var rows = [];
 
-const DEFAULT_DATA = [
-  { nome: "MAURÍCIO", palpite: "3 X 1" },
-  { nome: "AMANDA",   palpite: "" },
-  { nome: "CIRLEI",   palpite: "" },
-  { nome: "MARCIA",   palpite: "" },
-  { nome: "ALEX",     palpite: "" }
-];
-
-let rows = [];
-
-function load() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    rows = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
-  } catch(e) {
-    rows = JSON.parse(JSON.stringify(DEFAULT_DATA));
-  }
-}
-
-function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(rows)); } catch(e) {}
+function loadData() {
+  document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="4">Carregando... ⏳</td></tr>';
+  fetch(API + "?t=" + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(d){ rows = Array.isArray(d) ? d : []; render(); })
+    .catch(function(){ document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="4">Erro ao carregar. Clique em Atualizar ⚠️</td></tr>'; });
 }
 
 function render() {
-  const tbody = document.getElementById("bolao-body");
-  const filled = rows.filter(r => r.palpite && r.palpite.trim()).length;
-  document.getElementById("col-header").textContent =
-    "PALPITE (" + filled + " de " + rows.length + ")";
-
-  let html = "";
-  rows.forEach(function(row, i) {
-    const bg = (i % 2 === 0) ? "#fff" : "#EBEBEB";
-    html += "<tr style='background:" + bg + "'>";
-    html += "<td>" + escHtml(row.nome.toUpperCase()) + "</td>";
-    if (row.palpite && row.palpite.trim()) {
-      html += "<td class='col-palpite'><strong>" + escHtml(row.palpite.toUpperCase()) + "</strong></td>";
-    } else {
-      html += "<td class='col-palpite'><span class='no-palpite'>—</span></td>";
-    }
-    html += "<td class='col-del'><button class='delete-btn' onclick='removeRow(" + i + ")' title='Remover'>✕</button></td>";
-    html += "</tr>";
+  var filled = rows.filter(function(r){ return r.palpite && r.palpite.trim(); }).length;
+  document.getElementById("col-header").textContent = "PALPITE (" + filled + " de " + rows.length + ")";
+  if (!rows.length) { document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="4">Nenhum palpite ainda. Seja o primeiro! 🎯</td></tr>'; return; }
+  var h = "";
+  rows.forEach(function(r, i){
+    var bg = i % 2 === 0 ? "#fff" : "#EBEBEB";
+    h += "<tr style='background:" + bg + "'>";
+    h += "<td>" + esc(r.nome ? r.nome.toUpperCase() : "") + "</td>";
+    h += "<td class='cp'>" + (r.palpite ? "<strong>" + esc(r.palpite.toUpperCase()) + "</strong>" : "<span class='np'>—</span>") + "</td>";
+    h += "<td class='cd'>" + esc(r.data || "") + "</td>";
+    h += "<td class='cx'><button class='db' onclick='del(" + i + ")'>✕</button></td></tr>";
   });
-
-  var empties = Math.max(0, 10 - rows.length);
-  for (var e = 0; e < empties; e++) {
-    var bg2 = ((rows.length + e) % 2 === 0) ? "#fff" : "#EBEBEB";
-    html += "<tr style='background:" + bg2 + "'><td class='empty-cell'></td><td></td><td></td></tr>";
+  for (var e = 0; e < Math.max(0, 10 - rows.length); e++) {
+    var bg2 = (rows.length + e) % 2 === 0 ? "#fff" : "#EBEBEB";
+    h += "<tr style='background:" + bg2 + "'><td style='height:36px'></td><td></td><td></td><td></td></tr>";
   }
-
-  tbody.innerHTML = html;
+  document.getElementById("bolao-body").innerHTML = h;
 }
 
-function escHtml(s) {
-  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-function removeRow(i) {
-  if (confirm("Remover " + rows[i].nome + " do bolão?")) {
-    rows.splice(i, 1);
-    save();
-    render();
-  }
+function del(i) {
+  if (!confirm("Remover palpite de " + rows[i].nome + "?")) return;
+  fetch(API, { method:"POST", body: JSON.stringify({ action:"delete", nome: rows[i].nome, palpite: rows[i].palpite }) })
+    .then(function(){ showToast("Removido!"); loadData(); })
+    .catch(function(){ showToast("Erro ao remover."); });
 }
 
 function openModal() {
-  document.getElementById("input-nome").value = "";
-  document.getElementById("input-palpite").value = "";
+  document.getElementById("in").value = "";
+  document.getElementById("ip").value = "";
+  var b = document.getElementById("okbtn"); b.disabled = false; b.textContent = "Salvar";
   document.getElementById("modal").classList.add("open");
-  setTimeout(function() { document.getElementById("input-nome").focus(); }, 80);
+  setTimeout(function(){ document.getElementById("in").focus(); }, 80);
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.remove("open");
-}
-
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById("modal")) closeModal();
-}
+function closeModal() { document.getElementById("modal").classList.remove("open"); }
+function handleOverlayClick(e) { if (e.target === document.getElementById("modal")) closeModal(); }
 
 function addPalpite() {
-  var nome = document.getElementById("input-nome").value.trim();
-  var palpite = document.getElementById("input-palpite").value.trim();
-  if (!nome) {
-    document.getElementById("input-nome").focus();
-    showToast("Digite seu nome!");
-    return;
-  }
-  var palpiteFmt = palpite.replace(/\s*[xX]\s*/g, " X ") || "";
-  rows.push({ nome: nome, palpite: palpiteFmt });
-  save();
-  render();
-  closeModal();
-  showToast("Palpite de " + nome + " salvo!");
+  var nome = document.getElementById("in").value.trim();
+  var palpite = document.getElementById("ip").value.trim();
+  if (!nome) { document.getElementById("in").focus(); showToast("Digite seu nome!"); return; }
+  var b = document.getElementById("okbtn"); b.disabled = true; b.textContent = "Salvando...";
+  fetch(API, { method:"POST", body: JSON.stringify({ action:"add", nome: nome, palpite: palpite.replace(/\s*[xX]\s*/g," X ") }) })
+    .then(function(){ closeModal(); showToast("Palpite de " + nome + " salvo! ✅"); loadData(); })
+    .catch(function(){ showToast("Erro ao salvar."); b.disabled = false; b.textContent = "Salvar"; });
 }
 
 function copyLink() {
   var url = window.location.href;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(function() {
-      showToast("Link copiado!");
-    }).catch(function() {
-      fallbackCopy(url);
-    });
-  } else {
-    fallbackCopy(url);
-  }
-}
-
-function fallbackCopy(text) {
-  var el = document.getElementById("share-input");
-  el.select();
-  try { document.execCommand("copy"); showToast("Link copiado!"); } catch(e) { showToast("Copie o link manualmente."); }
+  if (navigator.clipboard) { navigator.clipboard.writeText(url).then(function(){ showToast("Link copiado! 📋"); }); }
+  else { document.getElementById("share-input").select(); document.execCommand("copy"); showToast("Link copiado! 📋"); }
 }
 
 function showToast(msg) {
-  var t = document.getElementById("toast");
-  t.textContent = msg;
-  t.style.display = "block";
-  setTimeout(function() { t.style.display = "none"; }, 2200);
+  var t = document.getElementById("toast"); t.textContent = msg; t.style.display = "block";
+  setTimeout(function(){ t.style.display = "none"; }, 2500);
 }
 
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function(e){
   if (e.key === "Escape") closeModal();
   if (e.key === "Enter" && document.getElementById("modal").classList.contains("open")) addPalpite();
 });
 
 document.getElementById("share-input").value = window.location.href;
-
-load();
-render();
+loadData();
+setInterval(loadData, 30000);
 </script>
 </body>
 </html>
