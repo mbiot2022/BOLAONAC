@@ -122,7 +122,7 @@
   <div class="pg">PAGAR DEPOIS</div>
 
   <!-- RESULTADO DO JOGO -->
-  <div class="resultado-section">
+  <div class="resultado-section" style="display:none">
     <div class="resultado-label">⚽ RESULTADO DO JOGO (apenas administrador)</div>
     <div class="resultado-form">
       <input class="resultado-input" type="text" id="resultado-input" placeholder="Ex: 3 x 0" maxlength="10" />
@@ -151,7 +151,7 @@
   </table>
 
   <div class="ar">
-    <button class="ab" onclick="openModal()">+ Adicionar palpite</button>
+    <button class="ab" disabled style="background:#aaa;cursor:not-allowed;">🔒 Bolão encerrado</button>
     <button class="rb" onclick="loadData()">↻ Atualizar</button>
   </div>
 
@@ -305,7 +305,7 @@ function render() {
     h += "<td>" + esc(r.nome ? r.nome.toUpperCase() : "") + "</td>";
     h += "<td class='cp'>" + (r.palpite ? "<strong>" + esc(p) + "</strong>" : "<span class='np'>—</span>") + "</td>";
     h += "<td class='cd'>" + esc(r.data || "") + "</td>";
-    h += "<td class='cx'><button class='db' onclick='del(" + i + ")'>✕</button></td></tr>";
+    h += "<td class='cx'></td></tr>";
   });
   for (var e = 0; e < Math.max(0, 10 - rows.length); e++) {
     var bg2 = (rows.length + e) % 2 === 0 ? "#fff" : "#EBEBEB";
