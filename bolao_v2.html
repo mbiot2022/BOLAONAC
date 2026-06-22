@@ -10,8 +10,8 @@
   .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.10); width: 100%; max-width: 720px; overflow: hidden; }
 
   /* AVISO TOPO */
-  .aviso-topo { background: #FF4500; color: #fff; text-align: center; padding: 12px 16px; font-size: 14px; font-weight: 900; line-height: 1.5; letter-spacing: 0.3px; }
-  .aviso-topo span { display: block; font-size: 12px; font-weight: 400; margin-top: 3px; opacity: 0.9; }
+  .aviso-topo { background: #1a3a8f; color: #FFD600; text-align: center; padding: 14px 16px; font-size: 17px; font-weight: 900; line-height: 1.5; letter-spacing: 0.3px; }
+  .aviso-topo span { display: block; font-size: 14px; font-weight: 600; margin-top: 4px; color: #fff; }
 
   /* HEADER */
   .header { background: linear-gradient(135deg, #1a3a8f 0%, #3A5AC8 100%); padding: 20px 24px 16px; }
@@ -50,8 +50,11 @@
   .admin-btn-red { background: #cc0000; } .admin-btn-red:hover { background: #990000; }
   .admin-btn-blue { background: #3A5AC8; } .admin-btn-blue:hover { background: #2a46a0; }
   .admin-btn-orange { background: #FF4500; } .admin-btn-orange:hover { background: #cc3700; }
+  .admin-logado-badge { display: none; background: #FFD600; color: #1a3a8f; text-align: center; padding: 8px 16px; font-size: 13px; font-weight: 900; letter-spacing: 0.5px; }
+  .pix-ganhadores-destaque { display: none; margin: 0 24px 12px; background: #FFD600; border: 2px solid #b8860b; border-radius: 8px; padding: 14px 18px; }
+  .pix-ganhadores-destaque .pg-title { font-size: 14px; font-weight: 900; color: #1a3a8f; margin-bottom: 6px; }
+  .pix-ganhadores-destaque .pg-text { font-size: 14px; color: #222; font-weight: 700; line-height: 1.7; }
   .admin-divider { border: none; border-top: 1px solid #f0d080; margin: 8px 0; }
-
   /* TABELA */
   .sl { font-size: 12px; font-weight: 700; color: #888; padding: 12px 24px 4px; letter-spacing: 1px; }
   table { width: 100%; border-collapse: collapse; }
@@ -149,6 +152,8 @@
 
   <div class="encerrado-badge" id="encerrado-badge">🔒 BOLÃO ENCERRADO — não é mais possível adicionar palpites</div>
 
+  <div class="admin-logado-badge" id="admin-logado-badge">🔐 MODO ADMINISTRADOR ATIVO — clique em ⚙️ administrador para sair</div>
+
   <!-- PLACAR -->
   <div class="placar-section">
     <div class="placar-match">
@@ -220,6 +225,12 @@
   <div class="premio-box">
     <div class="premio-header"><span>🏆 PRÊMIO TOTAL</span><span id="premio-total">R$ 0,00</span></div>
     <div class="premio-detalhe" id="premio-detalhe"></div>
+  </div>
+
+  <!-- PIX GANHADORES DESTAQUE (só admin) -->
+  <div class="pix-ganhadores-destaque" id="pix-ganhadores-destaque">
+    <div class="pg-title">🏆 ATENÇÃO GANHADORES!</div>
+    <div class="pg-text">Favor enviarem sua <strong>CHAVE PIX</strong> para o WhatsApp <strong>(16) 99704-2101</strong> para receberem o prêmio!</div>
   </div>
 
   <!-- SHARE -->
@@ -450,8 +461,20 @@ function confirmarSenha() {
   if (document.getElementById("in-senha").value===getSenha()) { fecharModalSenha(); abrirAdmin(); }
   else { showToast("Senha incorreta! ❌"); document.getElementById("in-senha").value=""; document.getElementById("in-senha").focus(); }
 }
-function abrirAdmin()  { adminAberto=true;  document.getElementById("admin-panel").classList.add("open"); }
-function fecharAdmin() { adminAberto=false; document.getElementById("admin-panel").classList.remove("open"); }
+function abrirAdmin() {
+  adminAberto = true;
+  document.getElementById("admin-panel").classList.add("open");
+  document.getElementById("admin-logado-badge").style.display = "block";
+  document.getElementById("pix-ganhadores-destaque").style.display = "block";
+  render();
+}
+function fecharAdmin() {
+  adminAberto = false;
+  document.getElementById("admin-panel").classList.remove("open");
+  document.getElementById("admin-logado-badge").style.display = "none";
+  document.getElementById("pix-ganhadores-destaque").style.display = "none";
+  render();
+}
 
 // ---- PALPITES ----
 function loadPalpites() {
