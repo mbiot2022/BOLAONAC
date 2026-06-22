@@ -413,9 +413,22 @@ function loadHistorico() {
 function togglePagamento(id, pagoAtual) {
   if (!adminAberto) { showToast("Acesse o painel admin para marcar pagamentos."); return; }
   var novoPago = !pagoAtual;
-  sbFetch("/rest/v1/palpites?id=eq."+id, { method:"PATCH", body: JSON.stringify({pago: novoPago}) })
-    .then(function(){ loadTudo(); showToast(novoPago ? "Pagamento confirmado! ✅" : "Pagamento removido."); })
-    .catch(function(){ showToast("Erro ao atualizar."); });
+  fetch(SB_URL + "/rest/v1/palpites?id=eq." + id, {
+    method: "PATCH",
+    headers: {
+      "apikey": SB_KEY,
+      "Authorization": "Bearer " + SB_KEY,
+      "Content-Type": "application/json",
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({ pago: novoPago })
+  })
+  .then(function(r){
+    if (!r.ok) throw new Error("status " + r.status);
+    loadTudo();
+    showToast(novoPago ? "✅ Pagamento confirmado!" : "Pagamento removido.");
+  })
+  .catch(function(e){ showToast("Erro ao atualizar: " + e.message); });
 }
 
 // ---- SENHA ADMIN ----
