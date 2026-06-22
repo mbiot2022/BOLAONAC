@@ -8,26 +8,22 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, Helvetica, sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 24px 12px 60px; }
   .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.10); width: 100%; max-width: 720px; overflow: hidden; }
-
   .header { background: linear-gradient(135deg, #1a3a8f 0%, #3A5AC8 100%); padding: 20px 24px 16px; }
   .header-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
   .header-titulo { font-size: clamp(16px,4vw,22px); font-weight: 900; color: #fff; letter-spacing: 1px; }
   .header-valor { font-size: clamp(16px,4vw,22px); font-weight: 900; color: #FFD600; }
   .header-info { text-align: center; font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 4px; }
-
   .placar-section { background: #f8f9fc; border-bottom: 1px solid #e8eaf0; padding: 16px 24px; }
   .placar-match { display: flex; align-items: center; justify-content: center; gap: 20px; }
-  .placar-team { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 90px; }
+  .placar-team { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 80px; }
   .placar-flag { font-size: 40px; }
   .placar-nome { font-size: 14px; font-weight: 700; color: #222; }
   .placar-vs { display: flex; flex-direction: column; align-items: center; gap: 3px; }
   .placar-x { font-size: 20px; font-weight: 700; color: #aaa; }
   .placar-grupo { font-size: 10px; color: #888; white-space: nowrap; text-align: center; }
-
   .resultado-banner { display: none; background: #1a7f37; color: #fff; text-align: center; padding: 10px 24px; font-size: 15px; font-weight: 900; }
   .placar-final { font-size: 22px; color: #FFD600; margin: 0 8px; }
   .encerrado-badge { display: none; background: #cc0000; color: #fff; text-align: center; padding: 6px; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-
   .admin-toggle { text-align: right; padding: 8px 16px 0; }
   .admin-toggle button { background: none; border: none; font-size: 11px; color: #aaa; cursor: pointer; text-decoration: underline; }
   .admin-panel { display: none; margin: 10px 16px 0; background: #fff8e1; border: 1.5px solid #FFD600; border-radius: 8px; padding: 14px 16px; }
@@ -38,14 +34,12 @@
   .admin-input { padding: 7px 10px; border: 1.5px solid #ddd; border-radius: 6px; font-size: 13px; width: 130px; text-align: center; outline: none; color: #222; }
   .admin-input:focus { border-color: #3A5AC8; }
   .admin-input-text { padding: 7px 10px; border: 1.5px solid #ddd; border-radius: 6px; font-size: 13px; width: 160px; outline: none; color: #222; }
+  .admin-input-text:focus { border-color: #3A5AC8; }
   .admin-btn { padding: 7px 14px; background: #1a7f37; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
   .admin-btn:hover { background: #145f2a; }
-  .admin-btn-red { background: #cc0000; }
-  .admin-btn-red:hover { background: #990000; }
-  .admin-btn-blue { background: #3A5AC8; }
-  .admin-btn-blue:hover { background: #2a46a0; }
+  .admin-btn-red { background: #cc0000; } .admin-btn-red:hover { background: #990000; }
+  .admin-btn-blue { background: #3A5AC8; } .admin-btn-blue:hover { background: #2a46a0; }
   .admin-divider { border: none; border-top: 1px solid #f0d080; margin: 8px 0; }
-
   .sl { font-size: 12px; font-weight: 700; color: #888; padding: 12px 24px 4px; letter-spacing: 1px; }
   table { width: 100%; border-collapse: collapse; }
   thead tr { background: #3A5AC8; }
@@ -62,29 +56,24 @@
   tr.ganhador td { background: #d4f5d4 !important; color: #1a5c1a !important; }
   tr.ganhador td.cp strong { color: #1a5c1a; }
   tr.ganhador td:first-child::after { content: " 🏆"; }
-
   .acoes { padding: 12px 24px 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .btn-add { padding: 9px 20px; background: #3A5AC8; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; }
   .btn-add:hover { background: #2a46a0; }
   .btn-add:disabled { background: #aaa; cursor: not-allowed; }
   .btn-refresh { background: none; border: none; cursor: pointer; color: #3A5AC8; font-size: 12px; font-weight: 700; text-decoration: underline; }
-
   .premio-box { margin: 8px 24px 12px; border-radius: 8px; overflow: hidden; border: 2px solid #3A5AC8; }
   .premio-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #3A5AC8; color: #fff; font-size: 14px; font-weight: 900; }
   .premio-header span { color: #FFD600; font-size: 17px; }
   .premio-detalhe { display: none; padding: 10px 16px; background: #eafbf0; font-size: 13px; color: #1a5c1a; font-weight: 700; line-height: 1.8; }
-
   .share-bar { display: flex; align-items: center; gap: 8px; padding: 6px 24px 14px; flex-wrap: wrap; }
   .share-label { font-size: 11px; color: #aaa; white-space: nowrap; }
   .share-input { flex: 1; min-width: 100px; padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 11px; color: #888; background: #f8f9fc; outline: none; }
   .copy-btn { padding: 6px 14px; background: #FF4500; color: #fff; border: none; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
   .copy-btn:hover { background: #cc3700; }
-
   .pix-box { margin: 0 24px 20px; background: #fff8e1; border: 1.5px solid #FFD600; border-radius: 8px; padding: 14px 18px; }
   .pix-title { font-size: 13px; font-weight: 900; color: #b8860b; margin-bottom: 8px; }
   .pix-text { font-size: 13px; color: #555; line-height: 1.8; }
   .pix-destaque { font-size: 14px; font-weight: 700; color: #3A5AC8; }
-
   .mo { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
   .mo.open { display: flex; }
   .md { background: #fff; border-radius: 12px; padding: 28px 24px 20px; width: 320px; max-width: 92vw; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
@@ -96,17 +85,14 @@
   .mbb .cc { padding: 8px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid #ddd; background: #fff; color: #555; }
   .mbb .ok { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; background: #3A5AC8; color: #fff; }
   .mbb .ok:disabled { background: #aaa; cursor: not-allowed; }
-
   .mo-senha { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; }
   .mo-senha.open { display: flex; }
-
   .toast { display: none; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 13px; font-weight: 600; z-index: 300; pointer-events: none; white-space: nowrap; }
   @media (max-width:500px) { thead th, tbody td { padding: 9px 12px; } .placar-flag { font-size: 30px; } }
 </style>
 </head>
 <body>
 <div class="card">
-
   <div class="header">
     <div class="header-top">
       <div class="header-titulo">BOLÃO DO NAC</div>
@@ -114,39 +100,31 @@
     </div>
     <div class="header-info">Copa do Mundo FIFA 2026™ · Fase de grupos · Grupo C</div>
   </div>
-
   <div class="encerrado-badge" id="encerrado-badge">🔒 BOLÃO ENCERRADO — não é mais possível adicionar palpites</div>
-
   <div class="placar-section">
     <div class="placar-match">
-      <div class="placar-team">
-        <span class="placar-flag">🇧🇷</span>
-        <span class="placar-nome">Brasil</span>
-      </div>
+      <div class="placar-team"><span class="placar-flag">🇧🇷</span><span class="placar-nome">Brasil</span></div>
       <div class="placar-vs">
         <span class="placar-x">x</span>
-        <span class="placar-grupo" id="hd-data">Data · Horário</span>
+        <span class="placar-grupo" id="data-jogo">carregando...</span>
       </div>
-      <div class="placar-team">
-        <span class="placar-flag">🇭🇹</span>
-        <span class="placar-nome">Haiti</span>
-      </div>
+      <div class="placar-team"><span class="placar-flag">🇭🇹</span><span class="placar-nome">Haiti</span></div>
     </div>
   </div>
-
   <div class="resultado-banner" id="resultado-banner"></div>
-
-  <div class="admin-toggle">
-    <button onclick="toggleAdminSenha()">⚙️ administrador</button>
-  </div>
-
+  <div class="admin-toggle"><button onclick="toggleAdminSenha()">⚙️ administrador</button></div>
   <div class="admin-panel" id="admin-panel">
     <div class="admin-title">⚙️ PAINEL DO ADMINISTRADOR</div>
     <div class="admin-row">
       <label>Resultado do jogo:</label>
       <input class="admin-input" type="text" id="adm-resultado" placeholder="Ex: 3 x 0" maxlength="10" />
-      <button class="admin-btn" onclick="salvarResultado()">✔ Salvar</button>
+      <button class="admin-btn" onclick="salvarConfig('resultado')">✔ Salvar</button>
       <button class="admin-btn admin-btn-red" onclick="limparResultado()">✕ Limpar</button>
+    </div>
+    <div class="admin-row">
+      <label>Data/Horário do jogo:</label>
+      <input class="admin-input-text" type="text" id="adm-data" placeholder="Ex: 19/06/2026 · 21:30h" />
+      <button class="admin-btn admin-btn-blue" onclick="salvarConfig('data_jogo')">✔ Salvar</button>
     </div>
     <div class="admin-row">
       <label>Palpites:</label>
@@ -160,7 +138,6 @@
       <button class="admin-btn admin-btn-blue" onclick="salvarNovaSenha()">Salvar senha</button>
     </div>
   </div>
-
   <div class="sl">PALPITES</div>
   <table>
     <thead>
@@ -174,26 +151,19 @@
       <tr class="lr"><td colspan="3">Carregando... ⏳</td></tr>
     </tbody>
   </table>
-
   <div class="acoes">
     <button class="btn-add" id="btn-add" onclick="openModal()">+ Adicionar palpite</button>
-    <button class="btn-refresh" onclick="loadData()">↻ Atualizar</button>
+    <button class="btn-refresh" onclick="loadTudo()">↻ Atualizar</button>
   </div>
-
   <div class="premio-box">
-    <div class="premio-header">
-      <span>🏆 PRÊMIO TOTAL</span>
-      <span id="premio-total">R$ 0,00</span>
-    </div>
+    <div class="premio-header"><span>🏆 PRÊMIO TOTAL</span><span id="premio-total">R$ 0,00</span></div>
     <div class="premio-detalhe" id="premio-detalhe"></div>
   </div>
-
   <div class="share-bar">
     <span class="share-label">🔗 Compartilhar:</span>
     <input class="share-input" type="text" id="share-input" readonly />
     <button class="copy-btn" onclick="copyLink()">Copiar link</button>
   </div>
-
   <div class="pix-box">
     <div class="pix-title">💰 COMO FUNCIONA O PAGAMENTO</div>
     <div class="pix-text">
@@ -236,86 +206,114 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ======= CONFIGURAÇÕES SUPABASE =======
-var SB_URL  = "https://yhzyruscfxjxpfhsdwfz.supabase.co";
-var SB_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloenlydXNjZnhqeHBmaHNkd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjc3NzksImV4cCI6MjA5NzcwMzc3OX0.DdgNc6YXlkwjseIBcm_7hV8v9r-ssnTK6mcC4Tpqcmw";
-var STORAGE_RESULTADO = "bolao_v2_resultado";
-var STORAGE_ENCERRADO = "bolao_v2_encerrado";
-var STORAGE_SENHA     = "bolao_v2_senha";
-var SENHA_PADRAO      = "nac2026";
-// ======================================
+var SB_URL = "https://yhzyruscfxjxpfhsdwfz.supabase.co";
+var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloenlydXNjZnhqeHBmaHNkd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjc3NzksImV4cCI6MjA5NzcwMzc3OX0.DdgNc6YXlkwjseIBcm_7hV8v9r-ssnTK6mcC4Tpqcmw";
+var STORAGE_SENHA = "bolao_v2_senha";
+var SENHA_PADRAO  = "nac2026";
 
 var rows = [];
-var resultadoAtual = "";
+var cfg  = { resultado: "", encerrado: "false", data_jogo: "" };
 var adminAberto = false;
 
 function getSenha() { return localStorage.getItem(STORAGE_SENHA) || SENHA_PADRAO; }
-function isEncerrado() { return localStorage.getItem(STORAGE_ENCERRADO) === "1"; }
-function norm(s) { return String(s||"").toUpperCase().replace(/\s*[xX]\s*/g," X ").trim(); }
-function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function norm(s)    { return String(s||"").toUpperCase().replace(/\s*[xX]\s*/g," X ").trim(); }
+function esc(s)     { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-// ---- SUPABASE API ----
-function sbFetch(path, options) {
-  var opts = Object.assign({ headers: { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json", "Prefer": "return=representation" } }, options || {});
-  return fetch(SB_URL + path, opts);
+function sbFetch(path, opts) {
+  return fetch(SB_URL + path, Object.assign({
+    headers: { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY,
+               "Content-Type": "application/json", "Prefer": "return=representation" }
+  }, opts || {}));
 }
 
-// ---- RESULTADO ----
-function loadResultado() {
-  resultadoAtual = norm(localStorage.getItem(STORAGE_RESULTADO) || "");
-  document.getElementById("adm-resultado").value = resultadoAtual;
-  atualizarBannerResultado();
+// ---- CONFIG (Supabase) ----
+function loadConfig() {
+  return sbFetch("/rest/v1/config?select=chave,valor")
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!Array.isArray(d)) return;
+      d.forEach(function(row){ cfg[row.chave] = row.valor || ""; });
+      aplicarConfig();
+    });
 }
 
-function salvarResultado() {
-  var v = norm(document.getElementById("adm-resultado").value);
-  if (!v) { showToast("Digite o resultado!"); return; }
-  resultadoAtual = v;
-  localStorage.setItem(STORAGE_RESULTADO, v);
+function aplicarConfig() {
+  // data jogo
+  document.getElementById("data-jogo").textContent = cfg.data_jogo || "19/06/2026 · 21:30h";
+  document.getElementById("adm-data").value = cfg.data_jogo || "";
+  // resultado
+  document.getElementById("adm-resultado").value = cfg.resultado || "";
   atualizarBannerResultado();
-  render();
-  showToast("Resultado salvo: " + v + " ✅");
+  // encerrado
+  atualizarEstadoBotao();
+}
+
+function upsertConfig(chave, valor) {
+  return sbFetch("/rest/v1/config?chave=eq." + encodeURIComponent(chave), {
+    method: "PATCH",
+    body: JSON.stringify({ valor: valor })
+  });
+}
+
+function salvarConfig(chave) {
+  var val;
+  if (chave === "resultado") val = norm(document.getElementById("adm-resultado").value);
+  if (chave === "data_jogo") val = document.getElementById("adm-data").value.trim();
+  if (!val) { showToast("Campo vazio!"); return; }
+  upsertConfig(chave, val).then(function(){
+    cfg[chave] = val;
+    aplicarConfig();
+    render();
+    showToast("Salvo com sucesso! ✅");
+  }).catch(function(){ showToast("Erro ao salvar."); });
 }
 
 function limparResultado() {
-  resultadoAtual = "";
-  localStorage.removeItem(STORAGE_RESULTADO);
-  document.getElementById("adm-resultado").value = "";
-  atualizarBannerResultado();
-  render();
-  showToast("Resultado removido.");
+  upsertConfig("resultado", "").then(function(){
+    cfg.resultado = "";
+    document.getElementById("adm-resultado").value = "";
+    atualizarBannerResultado();
+    render();
+    showToast("Resultado removido.");
+  });
+}
+
+function encerrarBolao() {
+  if (!confirm("Encerrar o bolão? Ninguém mais poderá adicionar palpites.")) return;
+  upsertConfig("encerrado", "true").then(function(){
+    cfg.encerrado = "true";
+    atualizarEstadoBotao();
+    showToast("Bolão encerrado! 🔒");
+  });
+}
+
+function reabrirBolao() {
+  upsertConfig("encerrado", "false").then(function(){
+    cfg.encerrado = "false";
+    atualizarEstadoBotao();
+    showToast("Bolão reaberto! 🔓");
+  });
 }
 
 function atualizarBannerResultado() {
   var bar = document.getElementById("resultado-banner");
-  if (resultadoAtual) {
-    var p = resultadoAtual.split(" X ");
+  var r = cfg.resultado || "";
+  if (r) {
+    var p = r.split(" X ");
     bar.innerHTML = "⚽ RESULTADO FINAL: 🇧🇷 Brasil <span class='placar-final'>" + esc(p[0]||"?") + " x " + esc(p[1]||"?") + "</span> Haiti 🇭🇹";
     bar.style.display = "block";
   } else { bar.style.display = "none"; }
 }
 
-// ---- ENCERRAR ----
-function encerrarBolao() {
-  if (!confirm("Encerrar o bolão? Ninguém mais poderá adicionar palpites.")) return;
-  localStorage.setItem(STORAGE_ENCERRADO, "1");
-  atualizarEstadoBotao();
-  showToast("Bolão encerrado! 🔒");
-}
-function reabrirBolao() {
-  localStorage.removeItem(STORAGE_ENCERRADO);
-  atualizarEstadoBotao();
-  showToast("Bolão reaberto! 🔓");
-}
 function atualizarEstadoBotao() {
-  var enc = isEncerrado();
+  var enc = cfg.encerrado === "true";
   var btn = document.getElementById("btn-add");
   document.getElementById("encerrado-badge").style.display = enc ? "block" : "none";
   btn.disabled = enc;
   btn.textContent = enc ? "🔒 Bolão encerrado" : "+ Adicionar palpite";
 }
 
-// ---- SENHA ADMIN ----
+// ---- SENHA ----
 function salvarNovaSenha() {
   var nova = document.getElementById("adm-nova-senha").value.trim();
   if (!nova || nova.length < 4) { showToast("Senha deve ter ao menos 4 caracteres."); return; }
@@ -342,38 +340,42 @@ function confirmarSenha() {
     document.getElementById("in-senha").focus();
   }
 }
-function abrirAdmin() { adminAberto = true; document.getElementById("admin-panel").classList.add("open"); }
+function abrirAdmin()  { adminAberto = true;  document.getElementById("admin-panel").classList.add("open"); }
 function fecharAdmin() { adminAberto = false; document.getElementById("admin-panel").classList.remove("open"); }
 
-// ---- CARREGAR DADOS (Supabase) ----
-function loadData() {
-  document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="3">Carregando... ⏳</td></tr>';
-  sbFetch("/rest/v1/palpites?select=*&order=criado_em.asc")
+// ---- PALPITES ----
+function loadPalpites() {
+  return sbFetch("/rest/v1/palpites?select=*&order=criado_em.asc")
     .then(function(r){ return r.json(); })
-    .then(function(d){ rows = Array.isArray(d) ? d : []; render(); })
+    .then(function(d){ rows = Array.isArray(d) ? d : []; });
+}
+
+function loadTudo() {
+  document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="3">Carregando... ⏳</td></tr>';
+  Promise.all([loadConfig(), loadPalpites()])
+    .then(function(){ render(); })
     .catch(function(){ document.getElementById("bolao-body").innerHTML = '<tr class="lr"><td colspan="3">Erro ao carregar. Clique em Atualizar ⚠️</td></tr>'; });
 }
 
-// ---- RENDER ----
 function render() {
   var filled = rows.filter(function(r){ return r.palpite && r.palpite.trim(); }).length;
   document.getElementById("col-header").textContent = "PALPITE (" + filled + " de " + rows.length + ")";
   var total = rows.length * 10;
   document.getElementById("premio-total").textContent = "R$ " + total.toFixed(2).replace(".",",");
 
+  var resultado = cfg.resultado || "";
   var ganhadores = [];
-  if (resultadoAtual) {
-    rows.forEach(function(r){ if (norm(r.palpite) === resultadoAtual) ganhadores.push(r.nome); });
-  }
+  if (resultado) rows.forEach(function(r){ if (norm(r.palpite) === resultado) ganhadores.push(r.nome); });
+
   var det = document.getElementById("premio-detalhe");
-  if (resultadoAtual && ganhadores.length > 0) {
+  if (resultado && ganhadores.length > 0) {
     var pc = total / ganhadores.length;
     var txt = "🏆 Ganhador(es): <strong>" + ganhadores.map(function(n){ return esc((n||"").toUpperCase()); }).join(", ") + "</strong><br>";
     txt += ganhadores.length > 1
       ? "💰 Prêmio por ganhador: <strong>R$ " + pc.toFixed(2).replace(".",",") + "</strong> (total ÷ " + ganhadores.length + ")"
       : "💰 Prêmio: <strong>R$ " + pc.toFixed(2).replace(".",",") + "</strong> — leva tudo! 🎉";
     det.innerHTML = txt; det.style.display = "block";
-  } else if (resultadoAtual && ganhadores.length === 0) {
+  } else if (resultado && ganhadores.length === 0) {
     det.innerHTML = "😮 Nenhum participante acertou o placar exato. Verifique quem mais se aproximou!";
     det.style.display = "block";
   } else { det.style.display = "none"; }
@@ -385,9 +387,9 @@ function render() {
   var h = "";
   rows.forEach(function(r, i){
     var p = norm(r.palpite);
-    var isG = resultadoAtual && p === resultadoAtual;
+    var isG = resultado && p === resultado;
     var bg = isG ? "" : (i % 2 === 0 ? "#fff" : "#f4f6fb");
-    var hora = r.criado_em ? new Date(r.criado_em).toLocaleTimeString("pt-BR", {hour:"2-digit",minute:"2-digit"}) : "";
+    var hora = r.criado_em ? new Date(r.criado_em).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "";
     h += "<tr" + (isG ? " class='ganhador'" : "") + (bg ? " style='background:"+bg+"'" : "") + ">";
     h += "<td>" + esc((r.nome||"").toUpperCase()) + "</td>";
     h += "<td class='cp'>" + (r.palpite ? "<strong>" + esc(p) + "</strong>" : "<span class='np'>—</span>") + "</td>";
@@ -400,9 +402,9 @@ function render() {
   document.getElementById("bolao-body").innerHTML = h;
 }
 
-// ---- MODAL PALPITE ----
+// ---- ADICIONAR ----
 function openModal() {
-  if (isEncerrado()) { showToast("Bolão encerrado! Não é possível adicionar palpites."); return; }
+  if (cfg.encerrado === "true") { showToast("Bolão encerrado!"); return; }
   document.getElementById("in-nome").value = "";
   document.getElementById("in-palpite").value = "";
   var b = document.getElementById("okbtn"); b.disabled = false; b.textContent = "Salvar";
@@ -413,23 +415,14 @@ function closeModal() { document.getElementById("modal").classList.remove("open"
 function handleOverlay(e) { if (e.target === document.getElementById("modal")) closeModal(); }
 
 function addPalpite() {
-  if (isEncerrado()) { showToast("Bolão encerrado!"); closeModal(); return; }
+  if (cfg.encerrado === "true") { showToast("Bolão encerrado!"); closeModal(); return; }
   var nome = document.getElementById("in-nome").value.trim();
   var palpite = document.getElementById("in-palpite").value.trim();
   if (!nome) { document.getElementById("in-nome").focus(); showToast("Digite seu nome!"); return; }
   var b = document.getElementById("okbtn"); b.disabled = true; b.textContent = "Salvando...";
-  var palpFmt = palpite.replace(/\s*[xX]\s*/g," X ").trim();
-  sbFetch("/rest/v1/palpites", {
-    method: "POST",
-    body: JSON.stringify({ nome: nome, palpite: palpFmt })
-  })
-  .then(function(r){
-    if (!r.ok) throw new Error("Erro");
-    closeModal();
-    showToast("Palpite de " + nome + " salvo! ✅");
-    loadData();
-  })
-  .catch(function(){ showToast("Erro ao salvar. Tente novamente."); b.disabled = false; b.textContent = "Salvar"; });
+  sbFetch("/rest/v1/palpites", { method:"POST", body: JSON.stringify({ nome: nome, palpite: palpite.replace(/\s*[xX]\s*/g," X ").trim() }) })
+    .then(function(r){ if (!r.ok) throw new Error(); closeModal(); showToast("Palpite de " + nome + " salvo! ✅"); loadTudo(); })
+    .catch(function(){ showToast("Erro ao salvar."); b.disabled = false; b.textContent = "Salvar"; });
 }
 
 function copyLink() {
@@ -452,10 +445,8 @@ document.addEventListener("keydown", function(e){
 });
 
 document.getElementById("share-input").value = window.location.href;
-loadResultado();
-atualizarEstadoBotao();
-loadData();
-setInterval(loadData, 30000);
+loadTudo();
+setInterval(loadTudo, 30000);
 </script>
 </body>
 </html>
