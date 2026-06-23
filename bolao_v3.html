@@ -193,17 +193,21 @@
     <div class="como-body">
       <div class="como-step">
         <div class="como-num">1</div>
+        <div class="como-txt">Preencha o formulário abaixo com seu <strong>WhatsApp, Nome, Setor</strong> e seu <strong>Palpite</strong> e forma de pagamento: chave PIX <em>(apenas o administrador tem acesso)</em> / Dinheiro.</div>
+      </div>
+      <div class="como-step">
+        <div class="como-num">2</div>
         <div class="como-txt">Efetue o pagamento de <strong>R$ 10,00</strong> via PIX para a chave:<br>
           <span class="chave-pix">12033505898</span>
         </div>
       </div>
       <div class="como-step">
-        <div class="como-num">2</div>
-        <div class="como-txt">Preencha o formulário abaixo com seu <strong>WhatsApp, Nome, Setor</strong> e seu <strong>Palpite</strong>.</div>
+        <div class="como-num">3</div>
+        <div class="como-txt">Aguarde a <strong>confirmação do pagamento</strong> pelo administrador. Após aprovação, seu palpite aparecerá na lista de apostadores e você poderá ganhar o bolão! ✅</div>
       </div>
       <div class="como-step">
-        <div class="como-num">3</div>
-        <div class="como-txt">Aguarde a <strong>confirmação do pagamento</strong> pelo administrador. Após aprovação, seu palpite aparecerá na lista! ✅</div>
+        <div class="como-num">4</div>
+        <div class="como-txt">O(s) ganhador(es) receberá(ão) o valor do prêmio através do <strong>PIX</strong>.</div>
       </div>
     </div>
   </div>
@@ -248,7 +252,7 @@
       <div class="aviso-aguardando" id="aviso-aguardando">
         ⏳ Cadastro enviado com sucesso!<br>
         <strong>Aguardando confirmação do pagamento.</strong><br>
-        Seu palpite aparecerá na lista após aprovação do administrador.
+        Seu palpite aparecerá na lista de apostadores após aprovação do administrador.
       </div>
     </div>
   </div>
@@ -322,26 +326,9 @@
     <div class="premio-detalhe" id="premio-detalhe"></div>
   </div>
 
-  <!-- PIX GANHADORES (admin) -->
-  <div class="pix-ganhadores-destaque" id="pix-ganhadores-destaque">
-    <div class="pg-title">🏆 ATENÇÃO GANHADORES!</div>
-    <div class="pg-text">Favor enviarem sua <strong>CHAVE PIX</strong> para o WhatsApp <strong>(16) 99704-2101</strong> para receberem o prêmio!</div>
-  </div>
-
-  <!-- SHARE -->
-  <div class="share-bar">
-    <span class="share-label">🔗 Compartilhar:</span>
-    <input class="share-input" type="text" id="share-input" readonly />
-    <button class="copy-btn" onclick="copyLink()">Copiar link</button>
-  </div>
-
-  <!-- PIX INFO -->
-  <div class="pix-box">
-    <div class="pix-title">💰 PESSOAL, FAVOR EFETUAR O PAGAMENTO</div>
-    <div class="pix-text">
-      <strong>1)</strong> Cada participante deve enviar um PIX de <strong>R$ 10,00</strong> para a chave <strong>12033505898</strong>.<br><br>
-      <strong>2)</strong> <strong>GANHADORES:</strong> favor enviarem sua <strong>CHAVE PIX</strong> para o WhatsApp <strong>(16) 99704-2101</strong>.<br><br>
-      <strong>3)</strong> Serão enviados os PIX para os ganhadores do valor rateado.<br><br>
+  <!-- MENSAGEM ENCERRADO (só aparece quando bolão encerrado) -->
+  <div class="pix-box" id="msg-encerrado" style="display:none">
+    <div class="pix-text" style="text-align:center;">
       <span class="pix-destaque">Muito obrigado e parabéns aos ganhadores! 🍀⚽🇧🇷</span>
     </div>
   </div>
@@ -446,7 +433,7 @@ function atualizarBannerResultado() {
   var bar = document.getElementById("resultado-banner");
   if (cfg.resultado) {
     var p = cfg.resultado.split(" X ");
-    bar.innerHTML = "⚽ RESULTADO FINAL: 🇧🇷 Brasil <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Haiti 🇭🇹";
+    bar.innerHTML = "⚽ RESULTADO: 🇧🇷 Brasil <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Haiti 🇭🇹";
     bar.style.display="block";
   } else { bar.style.display="none"; }
 }
@@ -462,6 +449,8 @@ function atualizarEstadoBotao() {
   document.getElementById("encerrado-badge").style.display = enc?"block":"none";
   var sec = document.getElementById("cadastro-section");
   if(sec) sec.style.display = enc?"none":"block";
+  var msgEnc = document.getElementById("msg-encerrado");
+  if(msgEnc) msgEnc.style.display = enc?"block":"none";
 }
 
 // ---- ARQUIVAR ----
@@ -721,14 +710,12 @@ function abrirAdmin(){
   adminAberto=true;
   document.getElementById("admin-panel").classList.add("open");
   document.getElementById("admin-logado-badge").style.display="block";
-  document.getElementById("pix-ganhadores-destaque").style.display="block";
   render();
 }
 function fecharAdmin(){
   adminAberto=false;
   document.getElementById("admin-panel").classList.remove("open");
   document.getElementById("admin-logado-badge").style.display="none";
-  document.getElementById("pix-ganhadores-destaque").style.display="none";
   document.getElementById("fila-section").style.display="none";
   render();
 }
