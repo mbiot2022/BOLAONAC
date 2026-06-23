@@ -283,7 +283,7 @@
       <button class="admin-btn admin-btn-blue" onclick="salvarConfig('data_jogo')">✔ Salvar</button>
     </div>
     <div class="admin-row">
-      <label>Palpites:</label>
+      <label>Apostas:</label>
       <button class="admin-btn admin-btn-red" onclick="encerrarBolao()">🔒 Encerrar</button>
       <button class="admin-btn admin-btn-blue" onclick="reabrirBolao()">🔓 Reabrir</button>
     </div>
@@ -308,13 +308,13 @@
     <div class="fila-body" id="fila-body"></div>
   </div>
 
-  <!-- PALPITES APROVADOS -->
-  <div class="sl">✅ PALPITES APROVADOS</div>
+  <!-- APOSTAS APROVADAS -->
+  <div class="sl">✅ APOSTAS APROVADAS</div>
   <table>
     <thead>
       <tr>
         <th>Nome / Setor</th>
-        <th class="cp" id="col-header">PALPITE</th>
+        <th class="cp" id="col-header">APOSTA</th>
         <th class="cd">Horário</th>
         <th class="cpg">Pagto</th>
       </tr>
@@ -520,7 +520,7 @@ function render() {
   var resultado  = cfg.resultado||"";
   var ganhadores = resultado ? aprovados.filter(function(p){ return norm(p.palpite)===resultado; }) : [];
 
-  document.getElementById("col-header").textContent = "PALPITE ("+aprovados.length+")";
+  document.getElementById("col-header").textContent = "APOSTA ("+aprovados.length+")";
   document.getElementById("premio-total").textContent = "R$ "+(aprovados.length*10).toFixed(2).replace(".",",");
 
   // Fila de pendentes (só admin)
@@ -558,7 +558,7 @@ function render() {
 
   // Tabela
   if (!aprovados.length) {
-    document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhum palpite aprovado ainda. ⏳</td></tr>';
+    document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>';
     return;
   }
   var h="";
@@ -621,7 +621,7 @@ function cadastrar() {
   if (!wpp||wpp.length<8)  { showToast("Digite um WhatsApp válido!"); document.getElementById("f-whatsapp").focus(); return; }
   if (!nome)                { showToast("Digite seu nome!"); document.getElementById("f-nome").focus(); return; }
   if (!forma)               { showToast("Selecione a forma de pagamento!"); document.getElementById("f-pagamento").focus(); return; }
-  if (!palp)                { showToast("Digite seu palpite!"); document.getElementById("f-palpite").focus(); return; }
+  if (!palp)                { showToast("Digite sua aposta!"); document.getElementById("f-palpite").focus(); return; }
   var btn=document.getElementById("btn-cadastrar"); btn.disabled=true; btn.textContent="Enviando...";
   sbFetch("/rest/v1/participantes", { method:"POST", body:JSON.stringify({
     whatsapp: wpp, nome: nome, setor: setor,
