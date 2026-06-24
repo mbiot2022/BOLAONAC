@@ -562,21 +562,7 @@ function arquivarBolao() {
 function loadHistorico() {
   return sbFetch("/rest/v1/historico?select=*&order=numero.asc")
     .then(function(r){ return r.json(); })
-    .then(function(d){
-      var box = document.getElementById("historico-box");
-      if (!Array.isArray(d)||d.length===0) { box.style.display="none"; return; }
-      box.style.display="block";
-      var h="";
-      d.forEach(function(item){
-        var data = item.criado_em ? new Date(item.criado_em).toLocaleDateString("pt-BR") : "";
-        h+="<div class='historico-item'><strong>📋 Bolão #"+item.numero+"</strong> · "+data+"<br>";
-        h+="⚽ Resultado: <strong>"+esc(item.resultado||"—")+"</strong> · ";
-        h+="👥 Participantes: <strong>"+item.total_participantes+"</strong> · ";
-        h+="💰 Prêmio: <strong>R$ "+parseFloat(item.total_premio||0).toFixed(2).replace(".",",")+"</strong><br>";
-        h+="🏆 Ganhadores: <strong>"+esc(item.ganhadores||"Nenhum")+"</strong></div>";
-      });
-      document.getElementById("historico-lista").innerHTML=h;
-    });
+    .then(function(d){ /* histórico desativado */ });
 }
 
 // ---- PARTICIPANTES ----
@@ -760,7 +746,7 @@ function togglePagamento(id, pagoAtual) {
 // ---- CADASTRO ----
 function toggleChavePix() {
   var forma = document.getElementById("f-pagamento").value;
-  document.getElementById("row-chave-pix").style.display = forma==="PIX" ? "block" : "none";
+  
 }
 
 function cadastrar() {
@@ -790,7 +776,7 @@ function cadastrar() {
     document.getElementById("f-setor").value="";
     document.getElementById("f-palpite").value="";
     document.getElementById("f-pagamento").value="";
-    document.getElementById("row-chave-pix").style.display="none";
+    
     showToast("Cadastro enviado! Aguarde aprovação. ✅");
   })
   .catch(function(){ showToast("Erro ao enviar. Tente novamente."); btn.disabled=false; btn.textContent="✅ ENVIAR CADASTRO E APOSTA"; });
@@ -888,7 +874,7 @@ function fecharAdmin(){
 function copyLink(){
   var url=window.location.href;
   if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){showToast("Link copiado! 📋");});}
-  else{document.getElementById("share-input").select();document.execCommand("copy");showToast("Link copiado! 📋");}
+  else{ showToast("Copie o link da barra do navegador."); }
 }
 function showToast(msg){
   var t=document.getElementById("toast");t.textContent=msg;t.style.display="block";
