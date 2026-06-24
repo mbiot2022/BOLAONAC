@@ -4,7 +4,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bolão do NAC #2 — Escócia x Brasil</title>
+<title>Entretenimento v5 — Escócia x Brasil</title>
+<style>
+  /* TELA DE ACESSO */
+  .acesso-overlay { display:flex; position:fixed; inset:0; background:#1a3a8f; z-index:9999; align-items:center; justify-content:center; }
+  .acesso-box { background:#fff; border-radius:14px; padding:32px 28px; width:320px; max-width:92vw; box-shadow:0 8px 32px rgba(0,0,0,0.3); text-align:center; }
+  .acesso-logo { font-size:28px; font-weight:900; color:#1a3a8f; margin-bottom:4px; }
+  .acesso-sub { font-size:13px; color:#888; margin-bottom:20px; }
+  .acesso-label { display:block; font-size:11px; font-weight:700; color:#888; text-align:left; margin-bottom:5px; letter-spacing:0.5px; }
+  .acesso-input { width:100%; padding:10px 12px; border:1.5px solid #ddd; border-radius:6px; font-size:15px; outline:none; color:#222; margin-bottom:12px; text-align:center; letter-spacing:2px; }
+  .acesso-input:focus { border-color:#3A5AC8; }
+  .acesso-btn { width:100%; padding:11px; background:#3A5AC8; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:900; cursor:pointer; }
+  .acesso-btn:hover { background:#2a46a0; }
+  .acesso-erro { display:none; color:#cc0000; font-size:12px; font-weight:700; margin-top:8px; }
+  .acesso-flag { font-size:36px; margin-bottom:8px; }
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, Helvetica, sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 16px 12px 60px; }
@@ -160,6 +173,19 @@
 </style>
 </head>
 <body>
+<!-- TELA DE ACESSO -->
+<div class="acesso-overlay" id="acesso-overlay">
+  <div class="acesso-box">
+    <div class="acesso-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿⚽🇧🇷</div>
+    <div class="acesso-logo">ENTRETENIMENTO</div>
+    <div class="acesso-sub">Entretenimento Interno para Treinamento</div>
+    <label class="acesso-label">🔐 SENHA DE ACESSO</label>
+    <input class="acesso-input" type="password" id="acesso-senha" placeholder="••••••••" maxlength="30" />
+    <button class="acesso-btn" onclick="verificarAcesso()">ENTRAR</button>
+    <div class="acesso-erro" id="acesso-erro">❌ Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
 <div class="card">
 
   <!-- HEADER -->
@@ -363,9 +389,42 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ======= SENHA DE ACESSO À PÁGINA =======
+var SENHA_PAGINA = "NAOPOSSODIVULGAR2026";
+var ACESSO_KEY   = "entretenimento_v5_acesso";
+
+function verificarAcesso() {
+  var digitada = document.getElementById("acesso-senha").value;
+  if (digitada === SENHA_PAGINA) {
+    sessionStorage.setItem(ACESSO_KEY, "ok");
+    document.getElementById("acesso-overlay").style.display = "none";
+  } else {
+    document.getElementById("acesso-erro").style.display = "block";
+    document.getElementById("acesso-senha").value = "";
+    document.getElementById("acesso-senha").focus();
+  }
+}
+
+// Verifica se já tem acesso na sessão
+(function(){
+  if (sessionStorage.getItem(ACESSO_KEY) === "ok") {
+    document.addEventListener("DOMContentLoaded", function(){
+      var el = document.getElementById("acesso-overlay");
+      if (el) el.style.display = "none";
+    });
+  }
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Enter") {
+      var overlay = document.getElementById("acesso-overlay");
+      if (overlay && overlay.style.display !== "none") verificarAcesso();
+    }
+  });
+})();
+// =========================================
+
 var SB_URL = "https://yhzyruscfxjxpfhsdwfz.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloenlydXNjZnhqeHBmaHNkd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjc3NzksImV4cCI6MjA5NzcwMzc3OX0.DdgNc6YXlkwjseIBcm_7hV8v9r-ssnTK6mcC4Tpqcmw";
-var STORAGE_SENHA = "bolao_v4_senha";
+var STORAGE_SENHA = "entretenimento_v5_senha";
 var SENHA_PADRAO  = "nac2026";
 var participantes = [];
 var cfg = { resultado:"", encerrado:"false", data_jogo:"24/06/2026 · 19:00h", numero_bolao:"2", encerramento_auto:"" };
