@@ -546,7 +546,7 @@ function atualizarEstadoBotao() {
 function arquivarBolao() {
   if (!confirm("Arquivar bolão atual e iniciar novo? Todos os participantes serão removidos.")) return;
   var num = parseInt(cfg.numero_bolao||"1");
-  var aprovados = participantes.filter(function(p){ return p.aprovado; });
+  var aprovados = participantes.filter(function(p){ return p.aprovado === true || p.aprovado === "true"; });
   var ganhadores = aprovados.filter(function(p){ return norm(p.palpite)===cfg.resultado; }).map(function(p){ return p.nome; }).join(", ");
   sbFetch("/rest/v1/historico", { method:"POST", body: JSON.stringify({
     numero: num, titulo: "Bolão #"+num, resultado: cfg.resultado||"—",
@@ -599,8 +599,8 @@ function loadTudo() {
 }
 
 function render() {
-  var aprovados  = participantes.filter(function(p){ return p.aprovado; });
-  var pendentes  = participantes.filter(function(p){ return !p.aprovado; });
+  var aprovados  = participantes.filter(function(p){ return p.aprovado === true || p.aprovado === "true"; });
+  var pendentes  = participantes.filter(function(p){ return !p.aprovado || p.aprovado === "false"; });
   var pagos      = aprovados.filter(function(p){ return p.pago; }).length;
   var resultado  = cfg.resultado||"";
   var ganhadores = resultado ? aprovados.filter(function(p){ return norm(p.palpite)===resultado; }) : [];
