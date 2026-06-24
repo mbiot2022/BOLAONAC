@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bolão do NAC v3</title>
+<title>Bolão do NAC #2 — Escócia x Brasil</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, Helvetica, sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 16px 12px 60px; }
@@ -164,7 +165,7 @@
   <!-- HEADER -->
   <div class="header">
     <div class="header-top">
-      <div class="header-titulo">BOLÃO DO NAC</div>
+      <div class="header-titulo">BOLÃO DO NAC #2</div>
       <div class="header-valor">R$ 10,00</div>
     </div>
     <div class="header-info">Copa do Mundo FIFA 2026™ · Fase de grupos · Grupo C</div>
@@ -177,12 +178,12 @@
   <!-- PLACAR -->
   <div class="placar-section">
     <div class="placar-match">
-      <div class="placar-team"><span class="placar-flag">🇧🇷</span><span class="placar-nome">Brasil</span></div>
+      <div class="placar-team"><span class="placar-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="placar-nome">Escócia</span></div>
       <div class="placar-vs">
         <span class="placar-x">x</span>
-        <span class="placar-grupo" id="data-jogo">carregando...</span>
+        <span class="placar-grupo" id="data-jogo">24/06/2026 · 19:00h</span>
       </div>
-      <div class="placar-team"><span class="placar-flag">🇭🇹</span><span class="placar-nome">Haiti</span></div>
+      <div class="placar-team"><span class="placar-flag">🇧🇷</span><span class="placar-nome">Brasil</span></div>
     </div>
   </div>
   <div class="resultado-banner" id="resultado-banner"></div>
@@ -237,20 +238,20 @@
       </div>
       <div class="form-row">
         <label class="form-label">💳 FORMA DE PAGAMENTO</label>
-        <select class="form-select" id="f-pagamento" onchange="toggleChavePix()">
+        <select class="form-select" id="f-pagamento">
           <option value="">— Selecione —</option>
           <option value="PIX">💸 PIX — chave: c1615c45-0e6a-4f03-86b7-80c0c57a1dbf</option>
           <option value="Dinheiro - Maurício">💵 Dinheiro para Maurício</option>
           <option value="Dinheiro - Daniele">💵 Dinheiro para Daniele</option>
         </select>
       </div>
-      <div class="form-row" id="row-chave-pix" style="display:none">
-        <label class="form-label">🔑 SUA CHAVE PIX (para receber o prêmio. Apenas o administrador tem acesso para efetuar o pagamento)</label>
+      <div class="form-row">
+        <label class="form-label">🔑 SUA CHAVE PIX para receber o prêmio caso ganhe <em>(somente o administrador verá — não aparecerá no site)</em></label>
         <input class="form-input" type="text" id="f-chave-pix" placeholder="CPF, telefone, e-mail ou chave aleatória" maxlength="60" />
       </div>
       <div class="form-row">
         <label class="form-label">⚽ SUA APOSTA (placar final)</label>
-        <input class="form-input" type="text" id="f-palpite" placeholder="Ex: 3 x 1  (Brasil x Haiti)" maxlength="10" style="text-align:center;font-size:16px;font-weight:700;" />
+        <input class="form-input" type="text" id="f-palpite" placeholder="Ex: 0 x 3  (Escócia x Brasil)" maxlength="10" style="text-align:center;font-size:16px;font-weight:700;" />
       </div>
       <button class="btn-cadastrar" id="btn-cadastrar" onclick="cadastrar()">✅ ENVIAR CADASTRO E APOSTA</button>
       <div class="aviso-aguardando" id="aviso-aguardando">
@@ -330,6 +331,7 @@
     <div class="premio-detalhe" id="premio-detalhe"></div>
   </div>
 
+  <!-- SHARE -->
   <!-- MENSAGEM ENCERRADO (só aparece quando bolão encerrado) -->
   <div class="pix-box" id="msg-encerrado" style="display:none">
     <div class="pix-text" style="text-align:center;">
@@ -363,10 +365,10 @@
 <script>
 var SB_URL = "https://yhzyruscfxjxpfhsdwfz.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InloenlydXNjZnhqeHBmaHNkd2Z6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjc3NzksImV4cCI6MjA5NzcwMzc3OX0.DdgNc6YXlkwjseIBcm_7hV8v9r-ssnTK6mcC4Tpqcmw";
-var STORAGE_SENHA = "bolao_v3_senha";
+var STORAGE_SENHA = "bolao_v4_senha";
 var SENHA_PADRAO  = "nac2026";
 var participantes = [];
-var cfg = { resultado:"", encerrado:"false", data_jogo:"", numero_bolao:"1" };
+var cfg = { resultado:"", encerrado:"false", data_jogo:"24/06/2026 · 19:00h", numero_bolao:"2", encerramento_auto:"" };
 var adminAberto = false;
 
 function copiarChave() {
@@ -457,7 +459,7 @@ function atualizarBannerResultado() {
   var bar = document.getElementById("resultado-banner");
   if (cfg.resultado) {
     var p = cfg.resultado.split(" X ");
-    bar.innerHTML = "⚽ RESULTADO: 🇧🇷 Brasil <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Haiti 🇭🇹";
+    bar.innerHTML = "⚽ RESULTADO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Brasil 🇧🇷";
     bar.style.display="block";
   } else { bar.style.display="none"; }
 }
@@ -551,11 +553,18 @@ function render() {
     var fh="";
     pendentes.forEach(function(p){
       fh+="<div class='fila-item'>";
-      fh+="<div class='fila-info'><strong>"+esc((p.nome||"").toUpperCase())+"</strong> · "+esc(p.setor||"")+"<br>";
-      fh+="📱 "+esc(p.whatsapp||"")+" · Palpite: <strong>"+esc(norm(p.palpite))+"</strong><br>";
-      fh+="💳 "+esc(p.forma_pagamento||"Não informado")+(adminAberto && p.chave_pix?" · Chave PIX: <strong>"+esc(p.chave_pix)+"</strong>":"")+"</div>";
+      fh+="<div class='fila-info'><strong>"+esc((p.nome||"").toUpperCase())+"</strong> · <span class='setor-badge'>"+esc(p.setor||"—")+"</span><br>";
+      fh+="📱 "+esc(p.whatsapp||"—")+" · Aposta: <strong>"+esc(norm(p.palpite))+"</strong><br>";
+      fh+="💳 "+esc(p.forma_pagamento||"Não informado")+"<br>";
+      if (p.chave_pix) {
+        fh+="🔑 Chave PIX: <strong id='cpix-"+p.id+"'>"+esc(p.chave_pix)+"</strong> ";
+        fh+="<button onclick=\"copiarTexto('cpix-"+p.id+"',this)\" style='padding:2px 8px;background:#1a7f37;color:#fff;border:none;border-radius:4px;font-size:10px;cursor:pointer;'>📋 Copiar</button><br>";
+      } else {
+        fh+="🔑 Chave PIX: <em style='color:#aaa'>não informada</em><br>";
+      }
+      fh+="</div>";
       fh+="<div class='fila-btns'>";
-      fh+="<button class='btn-aprovar' onclick='aprovar("+p.id+")'>✅ Aprovar</button>";
+      fh+="<button class='btn-aprovar' onclick='aprovar("+p.id+")'>✅ Pago — Aprovar</button>";
       fh+="<button class='btn-rejeitar' onclick='rejeitar("+p.id+")'>❌ Rejeitar</button>";
       fh+="</div></div>";
     });
@@ -604,6 +613,25 @@ function render() {
     h+="<tr style='background:"+bg2+"'><td style='height:32px'></td><td></td><td></td><td></td></tr>";
   }
   document.getElementById("bolao-body").innerHTML=h;
+}
+
+function copiarTexto(elementId, btn) {
+  var texto = document.getElementById(elementId).textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(texto).then(function(){
+      btn.textContent = "✅ Copiado!";
+      setTimeout(function(){ btn.textContent = "📋 Copiar"; }, 2000);
+    });
+  } else {
+    var el = document.createElement("textarea");
+    el.value = texto;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    btn.textContent = "✅ Copiado!";
+    setTimeout(function(){ btn.textContent = "📋 Copiar"; }, 2000);
+  }
 }
 
 // ---- APROVAR / REJEITAR ----
