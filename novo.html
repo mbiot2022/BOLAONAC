@@ -232,7 +232,7 @@
 <div class="toast" id="toast"></div>
 <script>
 var _sp = atob("TkFPUE9TU09ESVZVTEdBUjIwMjY=");
-var _ak = "entretenimento_v7_acesso";
+var _ak = "entretenimento_v10_acesso";
 function verificarAcesso() {
   var d = document.getElementById("acesso-senha").value;
   if (d === _sp) {
@@ -282,7 +282,7 @@ function verificarAcesso() {
 
 var SB_URL = atob("aHR0cHM6Ly95aHp5cnVzY2Z4anhwZmhzZHdmei5zdXBhYmFzZS5jbw==");
 var SB_KEY = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW5sb2VubHlkWE5qWm5ocWVIQm1hSE5rZDJaNklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzT0RJeE1qYzNOemtzSW1WNGNDSTZNakE1Tnpjd016YzNPWDAuRGRnTmM2WVhsa3dqc2VJQmNtXzdoVjh2OXItc3NuVEs2bWNDNFRwcWNtdw==");
-var STORAGE_SENHA = "entretenimento_v7_senha";
+var STORAGE_SENHA = "entretenimento_v10_senha";
 var SENHA_PADRAO  = atob("bmFjMjAyNg==");
 var participantes = [];
 var cfg = { resultado:"", encerrado:"false", data_jogo:"24/06/2026 · 19:00h", numero_bolao:"2", encerramento_auto:"" };
@@ -360,8 +360,7 @@ function atualizarEstadoBotao() {
   var enc=cfg.encerrado==="true";
   var b=document.getElementById("encerrado-badge"); if(b) b.style.display=enc?"block":"none";
   var s=document.getElementById("cadastro-section"); if(s) s.style.display=enc?"none":"block";
-  var m=document.getElementById("msg-encerrado");
-  if(m) m.style.display=(enc && cfg.resultado && cfg.resultado.trim())?"block":"none";
+}
 }
 function arquivarBolao() {
   if (!confirm("Arquivar bolão atual e iniciar novo?")) return;
@@ -422,6 +421,25 @@ function render() {
   } else if (resultado&&ganhadores.length===0&&aprovados.length>0) {
     det.innerHTML="😮 Nenhum acertou o placar exato.<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong>"; det.style.display="block";
   } else { det.style.display="none"; }
+
+  // Mensagem parabéns — só quando encerrado E houver ganhadores
+  var enc=cfg.encerrado==="true";
+  var m=document.getElementById("msg-encerrado");
+  if(m) {
+    var elMsg=m.querySelector(".pix-destaque");
+    if(enc && ganhadores.length>0) {
+      var msgTxt = ganhadores.length===1
+        ? "Muito obrigado e parabéns ao ganhador! 🍀⚽🇧🇷"
+        : "Muito obrigado e parabéns aos ganhadores! 🍀⚽🇧🇷";
+      if(elMsg) elMsg.textContent=msgTxt;
+      m.style.display="block";
+    } else if(enc && resultado && ganhadores.length===0) {
+      if(elMsg) elMsg.innerHTML="O valor total <strong>ACUMULOU PARA O PRÓXIMO BOLÃO!</strong> 🏆<br><br>Vocês não precisam pagar para participar do próximo. Permitida apenas 1 aposta por participante.<br><br>Em breve vamos reabrir. Boa sorte e obrigado! 🍀⚽🇧🇷";
+      m.style.display="block";
+    } else {
+      m.style.display="none";
+    }
+  }
   if (!aprovados.length) { document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>'; return; }
   var h="";
   aprovados.forEach(function(p,i){
