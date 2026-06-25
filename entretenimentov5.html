@@ -227,17 +227,21 @@
     <div class="pix-text"><span class="pix-destaque" id="msg-encerrado-txt"></span></div>
   </div>
 
+  <!-- MENSAGEM CRÉDITO ACUMULADO (aparece quando encerrado sem ganhador) -->
+  <div id="msg-credito-acumulado" style="display:none;margin:0 16px 12px;background:#1a3a8f;color:#fff;border-radius:10px;padding:14px 18px;text-align:center;font-size:13px;line-height:1.8;">
+    💳 <strong style="font-size:14px;">CRÉDITO ACUMULADO!</strong><br>
+    Quem apostou neste bolão tem <strong>R$ 10,00 de crédito</strong> para usar no próximo.<br>
+    <span style="font-size:12px;opacity:0.85;">Seus créditos aparecerão automaticamente quando for apostar de novo!</span>
+  </div>
+
   <!-- CRÉDITOS -->
   <div id="creditos-section" style="display:none;margin:0 16px 20px;border:2px solid #1a7f37;border-radius:10px;overflow:hidden;">
     <div style="background:#1a7f37;color:#fff;padding:10px 16px;font-size:13px;font-weight:900;display:flex;justify-content:space-between;align-items:center;">
-      <span>💳 CRÉDITOS ACUMULADOS</span>
+      <span>💳 PARTICIPANTES COM CRÉDITO</span>
       <span style="font-size:11px;font-weight:400;opacity:0.85;">Próximo bolão — já pagos!</span>
     </div>
     <div style="background:#eafbf0;padding:12px 16px;font-size:13px;color:#1a5c1a;line-height:1.8;">
       <div id="creditos-lista"></div>
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid #b2e5c0;font-size:12px;color:#555;text-align:center;">
-        🎉 <strong>Seus créditos aparecerão quando for apostar de novo e pode usá-los!</strong>
-      </div>
     </div>
   </div>
 <div class="mo-senha" id="modal-senha" onclick="handleOverlaySenha(event)">
@@ -251,7 +255,7 @@
 <div class="toast" id="toast"></div>
 <script>
 var _sp = atob("TkFPUE9TU09ESVZVTEdBUjIwMjY=");
-var _ak = "entretenimento_v16_acesso";
+var _ak = "entretenimento_v17_acesso";
 function verificarAcesso() {
   var d = document.getElementById("acesso-senha").value;
   if (d === _sp) {
@@ -299,7 +303,7 @@ function verificarAcesso() {
 
 var SB_URL = atob("aHR0cHM6Ly95aHp5cnVzY2Z4anhwZmhzZHdmei5zdXBhYmFzZS5jbw==");
 var SB_KEY = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW5sb2VubHlkWE5qWm5ocWVIQm1hSE5rZDJaNklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzT0RJeE1qYzNOemtzSW1WNGNDSTZNakE1Tnpjd016YzNPWDAuRGRnTmM2WVhsa3dqc2VJQmNtXzdoVjh2OXItc3NuVEs2bWNDNFRwcWNtdw==");
-var STORAGE_SENHA = "entretenimento_v16_senha";
+var STORAGE_SENHA = "entretenimento_v17_senha";
 var SENHA_PADRAO  = atob("bmFjMjAyNg==");
 var participantes = [];
 var creditos = [];
@@ -318,19 +322,34 @@ function loadCreditos() {
 
 function renderCreditos() {
   var ativos = creditos.filter(function(c){ return parseFloat(c.valor) > 0; });
-  var sec = document.getElementById("creditos-section");
+  var enc = cfg.encerrado === "true";
+  var resultado = cfg.resultado || "";
+  var aprovados = participantes.filter(function(p){ return p.aprovado===true||p.aprovado==="true"; });
+  var ganhadores = resultado ? aprovados.filter(function(p){ return norm(p.palpite)===resultado; }) : [];
+  var semGanhador = enc && ganhadores.length === 0;
+
+  // Mensagem de crédito acumulado
+  var msgCred = document.getElementById("msg-credito-acumulado");
+  if (msgCred) msgCred.style.display = semGanhador ? "block" : "none";
+
+  // Lista de créditos
+  var sec  = document.getElementById("creditos-section");
   var lista = document.getElementById("creditos-lista");
   if (!sec || !lista) return;
-  if (ativos.length === 0) { sec.style.display="none"; return; }
-  sec.style.display = "block";
-  var h = "";
-  ativos.forEach(function(c) {
-    h += "<div style='display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #d4f5d4;'>";
-    h += "<span>✅ <strong>"+esc((c.nome||"").toUpperCase())+"</strong> <span style='font-size:11px;color:#888;'>"+esc(c.whatsapp||"")+"</span></span>";
-    h += "<span style='background:#1a7f37;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;'>R$ "+parseFloat(c.valor).toFixed(2).replace(".",",")+"</span>";
-    h += "</div>";
-  });
-  lista.innerHTML = h;
+
+  if (ativos.length > 0) {
+    sec.style.display = "block";
+    var h = "";
+    ativos.forEach(function(c) {
+      h += "<div style='display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #d4f5d4;'>";
+      h += "<span>✅ <strong>"+esc((c.nome||"").toUpperCase())+"</strong> <span style='font-size:11px;color:#888;'>"+esc(c.whatsapp||"")+"</span></span>";
+      h += "<span style='background:#1a7f37;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:10px;'>R$ "+parseFloat(c.valor).toFixed(2).replace(".",",")+"</span>";
+      h += "</div>";
+    });
+    lista.innerHTML = h;
+  } else {
+    sec.style.display = "none";
+  }
 }
 
 function verificarCredito() {
@@ -672,7 +691,7 @@ function render() {
     det.innerHTML="😮 Nenhum acertou o placar exato.<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong>";det.style.display="block";
   } else {det.style.display="none";}
 
-  if(!aprovados.length){document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>';return;}
+  if(!aprovados.length){document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>';renderCreditos();return;}
   var h="";
   aprovados.forEach(function(p,i){
     var pp=norm(p.palpite);var isG=resultado&&pp===resultado;
@@ -687,6 +706,7 @@ function render() {
   });
   for(var e=0;e<Math.max(0,10-aprovados.length);e++){var bg2=(aprovados.length+e)%2===0?"#fff":"#f4f6fb";h+="<tr style='background:"+bg2+"'><td style='height:32px'></td><td></td><td></td><td></td></tr>";}
   document.getElementById("bolao-body").innerHTML=h;
+  renderCreditos();
 }
 function copiarTexto(elementId,btn){
   var texto=document.getElementById(elementId).textContent;
