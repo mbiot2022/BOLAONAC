@@ -255,7 +255,7 @@
 <div class="toast" id="toast"></div>
 <script>
 var _sp = atob("TkFPUE9TU09ESVZVTEdBUjIwMjY=");
-var _ak = "entretenimento_v18_acesso";
+var _ak = "entretenimento_v19_acesso";
 function verificarAcesso() {
   var d = document.getElementById("acesso-senha").value;
   if (d === _sp) {
@@ -303,7 +303,7 @@ function verificarAcesso() {
 
 var SB_URL = atob("aHR0cHM6Ly95aHp5cnVzY2Z4anhwZmhzZHdmei5zdXBhYmFzZS5jbw==");
 var SB_KEY = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW5sb2VubHlkWE5qWm5ocWVIQm1hSE5rZDJaNklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzT0RJeE1qYzNOemtzSW1WNGNDSTZNakE1Tnpjd016YzNPWDAuRGRnTmM2WVhsa3dqc2VJQmNtXzdoVjh2OXItc3NuVEs2bWNDNFRwcWNtdw==");
-var STORAGE_SENHA = "entretenimento_v18_senha";
+var STORAGE_SENHA = "entretenimento_v19_senha";
 var SENHA_PADRAO  = atob("bmFjMjAyNg==");
 var participantes = [];
 var creditos = [];
@@ -587,14 +587,33 @@ function arquivarBolao() {
   .catch(function(){showToast("Erro ao arquivar.");});
 }
 function verCreditos() {
-  if(creditos.length===0){showToast("Nenhum crédito cadastrado.");return;}
-  var lista = creditos.filter(function(c){return parseFloat(c.valor)>0;});
-  if(lista.length===0){showToast("Nenhum crédito ativo no momento.");return;}
-  var txt = "💳 CRÉDITOS ATIVOS:\n\n";
-  lista.forEach(function(c){
-    txt += "• "+c.nome+" ("+c.whatsapp+"): R$ "+parseFloat(c.valor).toFixed(2).replace(".",",")+"\n";
+  var ativos = creditos.filter(function(c){ return parseFloat(c.valor) > 0; });
+  if(ativos.length===0){ showToast("Nenhum crédito ativo no momento."); return; }
+  var existing = document.getElementById("modal-creditos");
+  if(existing) existing.remove();
+  var linhas=""; var total=0;
+  ativos.forEach(function(c) {
+    total += parseFloat(c.valor);
+    linhas += "<div style='display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:13px;'>";
+    linhas += "<div><strong>"+esc((c.nome||"").toUpperCase())+"</strong><br><span style='font-size:11px;color:#888;'>📱 "+esc(c.whatsapp||"")+"</span></div>";
+    linhas += "<span style='background:#1a7f37;color:#fff;font-size:12px;font-weight:700;padding:3px 12px;border-radius:10px;white-space:nowrap;'>R$ "+parseFloat(c.valor).toFixed(2).replace(".",",")+"</span>";
+    linhas += "</div>";
   });
-  alert(txt);
+  var modal=document.createElement("div");
+  modal.id="modal-creditos";
+  modal.style.cssText="display:flex;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;";
+  modal.innerHTML="<div style='background:#fff;border-radius:12px;padding:0;width:340px;max-width:92vw;box-shadow:0 8px 32px rgba(0,0,0,0.2);overflow:hidden;'>"
+    +"<div style='background:#1a7f37;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;'>"
+    +"<span style='font-size:14px;font-weight:900;'>💳 CRÉDITOS ATIVOS ("+ativos.length+")</span>"
+    +"<button onclick='document.getElementById(\"modal-creditos\").remove()' style='background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;'>✕</button>"
+    +"</div>"
+    +"<div style='padding:12px 18px;max-height:320px;overflow-y:auto;'>"+linhas+"</div>"
+    +"<div style='padding:12px 18px;border-top:2px solid #1a7f37;display:flex;justify-content:space-between;align-items:center;background:#eafbf0;'>"
+    +"<span style='font-size:13px;font-weight:700;color:#1a5c1a;'>TOTAL ACUMULADO</span>"
+    +"<span style='font-size:15px;font-weight:900;color:#1a7f37;'>R$ "+total.toFixed(2).replace(".",",")+"</span>"
+    +"</div></div>";
+  modal.addEventListener("click",function(e){if(e.target===modal)modal.remove();});
+  document.body.appendChild(modal);
 }
 function zerarTodosCreditos() {
   if(!confirm("Zerar TODOS os créditos? Isso não pode ser desfeito."))return;
