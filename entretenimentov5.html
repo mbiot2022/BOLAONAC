@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Entretenimento v6 — Escócia x Brasil</title>
+<title>Entretenimento v11 — Escócia x Brasil</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, Helvetica, sans-serif; background: #f0f2f5; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 16px 12px 60px; }
@@ -99,9 +99,9 @@
   .premio-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: #3A5AC8; color: #fff; font-size: 14px; font-weight: 900; }
   .premio-header span { color: #FFD600; font-size: 17px; }
   .premio-detalhe { display: none; padding: 10px 16px; background: #eafbf0; font-size: 13px; color: #1a5c1a; font-weight: 700; line-height: 1.8; }
-  .pix-box { margin: 0 16px 20px; background: #fff8e1; border: 1.5px solid #FFD600; border-radius: 8px; padding: 14px 16px; }
-  .pix-text { font-size: 13px; color: #555; line-height: 1.8; }
-  .pix-destaque { font-size: 13px; font-weight: 700; color: #1a3a8f; }
+  .pix-box { margin: 10px 16px 20px; background: #fff8e1; border: 1.5px solid #FFD600; border-radius: 8px; padding: 14px 16px; }
+  .pix-text { font-size: 13px; color: #555; line-height: 1.8; text-align: center; }
+  .pix-destaque { font-size: 14px; font-weight: 700; color: #1a3a8f; }
   .mo { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
   .mo.open { display: flex; }
   .md { background: #fff; border-radius: 12px; padding: 24px 20px 20px; width: 320px; max-width: 92vw; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
@@ -165,8 +165,8 @@
     <div class="como-titulo">📋 <span id="_t2"></span></div>
     <div class="como-body">
       <div class="como-step"><div class="como-num">1</div><div class="como-txt">Preencha o <strong>CADASTRO</strong> abaixo com seu <strong>WhatsApp, Nome, Setor</strong>, sua <strong>Aposta</strong>, forma de pagamento e sua <strong>CHAVE PIX</strong> para receber o prêmio <em>(apenas o administrador tem acesso e não será visível neste site)</em>.</div></div>
-      <div class="como-step"><div class="como-num">2</div><div class="como-txt">Efetue o pagamento de <strong><span id="_t3"></span></strong> via PIX para a chave:<br><span class="chave-pix" id="chave-pix-val">c1615c45-0e6a-4f03-86b7-80c0c57a1dbf</span> <button onclick="copiarChave()" style="margin-left:8px;padding:4px 12px;background:#1a7f37;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;" id="btn-copiar-pix">📋 Copiar</button></div></div>
-      <div class="como-step"><div class="como-num">3</div><div class="como-txt">Aguarde a <strong>confirmação do pagamento</strong> pelo administrador. Após aprovação, sua aposta aparecerá na lista de apostadores e você poderá ganhar o bolão! ✅</div></div>
+      <div class="como-step"><div class="como-num">2</div><div class="como-txt">Efetue o pagamento de <strong><span id="_t3b"></span></strong> via PIX para a chave:<br><span class="chave-pix" id="chave-pix-val">c1615c45-0e6a-4f03-86b7-80c0c57a1dbf</span> <button onclick="copiarChave()" style="margin-left:8px;padding:4px 12px;background:#1a7f37;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;" id="btn-copiar-pix">📋 Copiar</button></div></div>
+      <div class="como-step"><div class="como-num">3</div><div class="como-txt">Aguarde a <strong>confirmação do pagamento</strong> pelo administrador. Após aprovação, sua aposta aparecerá na lista de apostadores e você poderá ganhar! ✅</div></div>
       <div class="como-step"><div class="como-num">4</div><div class="como-txt">O(s) ganhador(es) receberá(ão) o valor do prêmio através do <strong>PIX</strong>.</div></div>
       <div class="como-step"><div class="como-num">5</div><div class="como-txt">As apostas se encerram <strong>2 horas antes do jogo</strong> automaticamente. ⏰</div></div>
     </div>
@@ -183,8 +183,8 @@
         <select class="form-select" id="f-pagamento">
           <option value="">— Selecione —</option>
           <option value="PIX">💸 PIX — chave: c1615c45-0e6a-4f03-86b7-80c0c57a1dbf</option>
-          <option value="D1">💵 <span id="_t4"></span></option>
-          <option value="D2">💵 <span id="_t5"></span></option>
+          <option value="D1">💵 </option>
+          <option value="D2">💵 </option>
         </select>
       </div>
       <div class="form-row"><label class="form-label">🔑 SUA CHAVE PIX para receber o prêmio caso ganhe <em>(somente o administrador verá — não aparecerá no site)</em></label><input class="form-input" type="text" id="f-chave-pix" placeholder="CPF, telefone, e-mail ou chave aleatória" maxlength="60" /></div>
@@ -218,7 +218,7 @@
     <div class="premio-detalhe" id="premio-detalhe"></div>
   </div>
   <div class="pix-box" id="msg-encerrado" style="display:none">
-    <div class="pix-text" style="text-align:center;"><span class="pix-destaque">Muito obrigado e parabéns aos ganhadores! 🍀⚽🇧🇷</span></div>
+    <div class="pix-text"><span class="pix-destaque" id="msg-encerrado-txt"></span></div>
   </div>
 </div>
 <div class="mo-senha" id="modal-senha" onclick="handleOverlaySenha(event)">
@@ -232,7 +232,7 @@
 <div class="toast" id="toast"></div>
 <script>
 var _sp = atob("TkFPUE9TU09ESVZVTEdBUjIwMjY=");
-var _ak = "entretenimento_v10_acesso";
+var _ak = "entretenimento_v11_acesso";
 function verificarAcesso() {
   var d = document.getElementById("acesso-senha").value;
   if (d === _sp) {
@@ -259,22 +259,20 @@ function verificarAcesso() {
   });
 })();
 
-
-// Textos dinâmicos
 (function() {
-  var _d = atob("RU5UUkVURU5JTUVOVE8gTkFDICMy");
-  var _p = atob("Q09NTyBQQVJUSUNJUEFS");
-  var _v = atob("UiQgMTAsMDA=");
+  var _d  = atob("RU5UUkVURU5JTUVOVE8gTkFDICMy");
+  var _p  = atob("Q09NTyBQQVJUSUNJUEFS");
+  var _v  = atob("UiQgMTAsMDA=");
   var _m1 = atob("Q29udHJpYnVpw6fDo28gTWF1csOtY2lv");
   var _m2 = atob("Q29udHJpYnVpw6fDo28gRGFuaWVsZQ==");
   document.addEventListener("DOMContentLoaded", function() {
     var e;
-    e=document.getElementById("_t1"); if(e) e.textContent=_d;
-    e=document.getElementById("_t2"); if(e) e.textContent=_p;
-    e=document.getElementById("_t3"); if(e) e.textContent=_v;
-    e=document.getElementById("_t4"); if(e) e.textContent=_m1;
-    e=document.getElementById("_t5"); if(e) e.textContent=_m2;
-    // Atualizar options do select
+    e=document.getElementById("_t1");  if(e) e.textContent=_d;
+    e=document.getElementById("_t2");  if(e) e.textContent=_p;
+    e=document.getElementById("_t3");  if(e) e.textContent=_v;
+    e=document.getElementById("_t3b"); if(e) e.textContent=_v;
+    e=document.getElementById("_t4");  if(e) e.textContent=_m1;
+    e=document.getElementById("_t5");  if(e) e.textContent=_m2;
     var sel=document.getElementById("f-pagamento");
     if(sel) { sel.options[2].text="💵 "+_m1; sel.options[3].text="💵 "+_m2; }
   });
@@ -282,168 +280,191 @@ function verificarAcesso() {
 
 var SB_URL = atob("aHR0cHM6Ly95aHp5cnVzY2Z4anhwZmhzZHdmei5zdXBhYmFzZS5jbw==");
 var SB_KEY = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW5sb2VubHlkWE5qWm5ocWVIQm1hSE5rZDJaNklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzT0RJeE1qYzNOemtzSW1WNGNDSTZNakE1Tnpjd016YzNPWDAuRGRnTmM2WVhsa3dqc2VJQmNtXzdoVjh2OXItc3NuVEs2bWNDNFRwcWNtdw==");
-var STORAGE_SENHA = "entretenimento_v10_senha";
+var STORAGE_SENHA = "entretenimento_v11_senha";
 var SENHA_PADRAO  = atob("bmFjMjAyNg==");
 var participantes = [];
 var cfg = { resultado:"", encerrado:"false", data_jogo:"24/06/2026 · 19:00h", numero_bolao:"2", encerramento_auto:"" };
 var adminAberto = false;
 
 function copiarChave() {
-  var chave = document.getElementById("chave-pix-val").textContent;
-  var btn = document.getElementById("btn-copiar-pix");
-  if (navigator.clipboard) { navigator.clipboard.writeText(chave).then(function(){ btn.textContent="✅ Copiado!"; setTimeout(function(){ btn.textContent="📋 Copiar"; },2000); }); }
-  else { var el=document.createElement("textarea"); el.value=chave; document.body.appendChild(el); el.select(); document.execCommand("copy"); document.body.removeChild(el); btn.textContent="✅ Copiado!"; setTimeout(function(){ btn.textContent="📋 Copiar"; },2000); }
+  var chave=document.getElementById("chave-pix-val").textContent;
+  var btn=document.getElementById("btn-copiar-pix");
+  if(navigator.clipboard){navigator.clipboard.writeText(chave).then(function(){btn.textContent="✅ Copiado!";setTimeout(function(){btn.textContent="📋 Copiar";},2000);});}
+  else{var el=document.createElement("textarea");el.value=chave;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);btn.textContent="✅ Copiado!";setTimeout(function(){btn.textContent="📋 Copiar";},2000);}
 }
 function getSenha() { return localStorage.getItem(STORAGE_SENHA) || SENHA_PADRAO; }
 function norm(s) { return String(s||"").toUpperCase().replace(/\s*[xX]\s*/g," X ").trim(); }
 function esc(s)  { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function sbFetch(path, opts) {
-  return fetch(SB_URL + path, Object.assign({ headers: { "apikey":SB_KEY, "Authorization":"Bearer "+SB_KEY, "Content-Type":"application/json", "Prefer":"return=representation" } }, opts||{}));
+  return fetch(SB_URL+path, Object.assign({headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},opts||{}));
 }
 function sbPatch(path, body) {
-  return fetch(SB_URL + path, { method:"PATCH", headers: { "apikey":SB_KEY, "Authorization":"Bearer "+SB_KEY, "Content-Type":"application/json", "Prefer":"return=minimal" }, body: JSON.stringify(body) });
+  return fetch(SB_URL+path,{method:"PATCH",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(body)});
 }
 function loadConfig() {
   return sbFetch("/rest/v1/config?select=chave,valor")
-    .then(function(r){ return r.json(); })
-    .then(function(d){ if(Array.isArray(d)) d.forEach(function(r){ cfg[r.chave]=r.valor||""; }); aplicarConfig(); });
+    .then(function(r){return r.json();})
+    .then(function(d){if(Array.isArray(d))d.forEach(function(r){cfg[r.chave]=r.valor||"";});aplicarConfig();});
 }
 function aplicarConfig() {
-  document.getElementById("data-jogo").textContent = cfg.data_jogo || "—";
-  var el; el=document.getElementById("adm-data"); if(el) el.value=cfg.data_jogo||"";
+  document.getElementById("data-jogo").textContent=cfg.data_jogo||"—";
+  var el;
+  el=document.getElementById("adm-data"); if(el) el.value=cfg.data_jogo||"";
   el=document.getElementById("adm-resultado"); if(el) el.value=cfg.resultado||"";
-  el=document.getElementById("adm-encerramento"); if(el && cfg.encerramento_auto) el.value=cfg.encerramento_auto;
+  el=document.getElementById("adm-encerramento"); if(el&&cfg.encerramento_auto) el.value=cfg.encerramento_auto;
   atualizarBannerResultado();
   atualizarEstadoBotao();
   iniciarCountdown();
 }
-function upsertConfig(chave, valor) {
-  return sbFetch("/rest/v1/config?chave=eq."+encodeURIComponent(chave), { method:"PATCH", body:JSON.stringify({valor:valor}) });
+function upsertConfig(chave,valor) {
+  return sbFetch("/rest/v1/config?chave=eq."+encodeURIComponent(chave),{method:"PATCH",body:JSON.stringify({valor:valor})});
 }
 function salvarConfig(chave) {
-  var elRes=document.getElementById("adm-resultado"); var elData=document.getElementById("adm-data");
-  var val = chave==="resultado" ? (elRes?norm(elRes.value):"") : (elData?elData.value.trim():"");
-  if (!val) { showToast("Campo vazio!"); return; }
-  upsertConfig(chave, val).then(function(){
-    cfg[chave] = val;
-    if (chave === "data_jogo") {
-      var match = val.match(/(\d{2})\/(\d{2})\/(\d{4}).*?(\d{2}):(\d{2})/);
-      if (match) {
-        var pad = function(n){ return String(n).padStart(2,"0"); };
-        var dataJogo = new Date(match[3]+"-"+match[2]+"-"+match[1]+"T"+match[4]+":"+match[5]+":00");
-        var enc2h = new Date(dataJogo.getTime() - 2*60*60*1000);
-        var encISO = enc2h.getFullYear()+"-"+pad(enc2h.getMonth()+1)+"-"+pad(enc2h.getDate())+"T"+pad(enc2h.getHours())+":"+pad(enc2h.getMinutes());
+  var elRes=document.getElementById("adm-resultado");
+  var elData=document.getElementById("adm-data");
+  var val=chave==="resultado"?(elRes?norm(elRes.value):""):(elData?elData.value.trim():"");
+  if(!val){showToast("Campo vazio!");return;}
+  upsertConfig(chave,val).then(function(){
+    cfg[chave]=val;
+    if(chave==="data_jogo"){
+      var match=val.match(/(\d{2})\/(\d{2})\/(\d{4}).*?(\d{2}):(\d{2})/);
+      if(match){
+        var pad=function(n){return String(n).padStart(2,"0");};
+        var dataJogo=new Date(match[3]+"-"+match[2]+"-"+match[1]+"T"+match[4]+":"+match[5]+":00");
+        var enc2h=new Date(dataJogo.getTime()-2*60*60*1000);
+        var encISO=enc2h.getFullYear()+"-"+pad(enc2h.getMonth()+1)+"-"+pad(enc2h.getDate())+"T"+pad(enc2h.getHours())+":"+pad(enc2h.getMinutes());
         var admEnc=document.getElementById("adm-encerramento"); if(admEnc) admEnc.value=encISO;
-        upsertConfig("encerramento_auto", encISO).then(function(){ cfg.encerramento_auto=encISO; iniciarCountdown(); showToast("✅ Apostas encerram às "+pad(enc2h.getHours())+":"+pad(enc2h.getMinutes())+" (2h antes)"); });
-        aplicarConfig(); render(); return;
+        upsertConfig("encerramento_auto",encISO).then(function(){cfg.encerramento_auto=encISO;iniciarCountdown();showToast("✅ Apostas encerram às "+pad(enc2h.getHours())+":"+pad(enc2h.getMinutes())+" (2h antes)");});
+        aplicarConfig();render();return;
       }
     }
-    aplicarConfig(); render(); showToast("Salvo! ✅");
-  }).catch(function(){ showToast("Erro ao salvar."); });
+    aplicarConfig();render();showToast("Salvo! ✅");
+  }).catch(function(){showToast("Erro ao salvar.");});
 }
 function limparResultado() {
-  upsertConfig("resultado","").then(function(){ cfg.resultado=""; var el=document.getElementById("adm-resultado"); if(el) el.value=""; atualizarBannerResultado(); render(); showToast("Resultado removido."); });
+  upsertConfig("resultado","").then(function(){cfg.resultado="";var el=document.getElementById("adm-resultado");if(el)el.value="";atualizarBannerResultado();render();showToast("Resultado removido.");});
 }
 function atualizarBannerResultado() {
   var bar=document.getElementById("resultado-banner");
-  if (cfg.resultado) { var p=cfg.resultado.split(" X "); bar.innerHTML="⚽ RESULTADO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Brasil 🇧🇷"; bar.style.display="block"; }
-  else { bar.style.display="none"; }
+  if(cfg.resultado){var p=cfg.resultado.split(" X ");bar.innerHTML="⚽ RESULTADO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Brasil 🇧🇷";bar.style.display="block";}
+  else{bar.style.display="none";}
 }
 function encerrarBolao() {
-  if (!confirm("Encerrar o bolão?")) return;
-  upsertConfig("encerrado","true").then(function(){ cfg.encerrado="true"; atualizarEstadoBotao(); showToast("Bolão encerrado! 🔒"); });
+  if(!confirm("Encerrar o bolão?"))return;
+  upsertConfig("encerrado","true").then(function(){cfg.encerrado="true";atualizarEstadoBotao();render();showToast("Bolão encerrado! 🔒");});
 }
 function reabrirBolao() {
-  upsertConfig("encerrado","false").then(function(){ cfg.encerrado="false"; atualizarEstadoBotao(); showToast("Bolão reaberto! 🔓"); });
+  upsertConfig("encerrado","false").then(function(){cfg.encerrado="false";atualizarEstadoBotao();render();showToast("Bolão reaberto! 🔓");});
 }
 function atualizarEstadoBotao() {
   var enc=cfg.encerrado==="true";
   var b=document.getElementById("encerrado-badge"); if(b) b.style.display=enc?"block":"none";
   var s=document.getElementById("cadastro-section"); if(s) s.style.display=enc?"none":"block";
 }
-}
 function arquivarBolao() {
-  if (!confirm("Arquivar bolão atual e iniciar novo?")) return;
+  if(!confirm("Arquivar bolão atual e iniciar novo?"))return;
   var num=parseInt(cfg.numero_bolao||"1");
-  var aprovados=participantes.filter(function(p){ return p.aprovado===true||p.aprovado==="true"; });
-  var ganhadores=aprovados.filter(function(p){ return norm(p.palpite)===cfg.resultado; }).map(function(p){ return p.nome; }).join(", ");
-  sbFetch("/rest/v1/historico", { method:"POST", body: JSON.stringify({ numero:num, titulo:"Bolão #"+num, resultado:cfg.resultado||"—", total_participantes:aprovados.length, total_premio:aprovados.length*10, ganhadores:ganhadores||"Nenhum", dados:participantes })})
-  .then(function(){ return fetch(SB_URL+"/rest/v1/participantes?id=gt.0", { method:"DELETE", headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY} }); })
-  .then(function(){ return Promise.all([upsertConfig("resultado",""), upsertConfig("encerrado","false"), upsertConfig("numero_bolao",String(num+1))]); })
-  .then(function(){ showToast("Bolão #"+num+" arquivado! ✅"); loadTudo(); })
-  .catch(function(){ showToast("Erro ao arquivar."); });
+  var aprovados=participantes.filter(function(p){return p.aprovado===true||p.aprovado==="true";});
+  var ganhadores=aprovados.filter(function(p){return norm(p.palpite)===cfg.resultado;}).map(function(p){return p.nome;}).join(", ");
+  sbFetch("/rest/v1/historico",{method:"POST",body:JSON.stringify({numero:num,titulo:"Bolão #"+num,resultado:cfg.resultado||"—",total_participantes:aprovados.length,total_premio:aprovados.length*10,ganhadores:ganhadores||"Nenhum",dados:participantes})})
+  .then(function(){return fetch(SB_URL+"/rest/v1/participantes?id=gt.0",{method:"DELETE",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}});})
+  .then(function(){return Promise.all([upsertConfig("resultado",""),upsertConfig("encerrado","false"),upsertConfig("numero_bolao",String(num+1))]);})
+  .then(function(){showToast("Bolão #"+num+" arquivado! ✅");loadTudo();})
+  .catch(function(){showToast("Erro ao arquivar.");});
+}
+function apagarDuplicatas() {
+  var vistos={};
+  var duplicatas=[];
+  participantes.forEach(function(p){
+    if(vistos[p.whatsapp]){duplicatas.push(p);}
+    else{vistos[p.whatsapp]=true;}
+  });
+  if(duplicatas.length===0){showToast("Nenhuma duplicata encontrada! ✅");return;}
+  var nomes=duplicatas.map(function(p){return p.nome+" ("+p.whatsapp+")";}).join("\n");
+  if(!confirm("Apagar "+duplicatas.length+" aposta(s) duplicada(s)?\n\n"+nomes))return;
+  var promises=duplicatas.map(function(p){
+    return fetch(SB_URL+"/rest/v1/participantes?id=eq."+p.id,{method:"DELETE",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"}});
+  });
+  Promise.all(promises)
+    .then(function(){showToast(duplicatas.length+" duplicata(s) removida(s)! ✅");setTimeout(function(){loadTudo();},500);})
+    .catch(function(){showToast("Erro ao remover duplicatas.");});
 }
 function loadParticipantes() {
   return sbFetch("/rest/v1/participantes?select=*&order=criado_em.asc")
-    .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-    .then(function(d){ participantes=Array.isArray(d)?d:[]; });
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+    .then(function(d){participantes=Array.isArray(d)?d:[];});
 }
 function loadTudo() {
   document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Carregando... ⏳</td></tr>';
-  Promise.all([loadConfig(), loadParticipantes()])
-    .then(function(){ render(); })
-    .catch(function(e){ document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Erro: '+(e&&e.message?e.message:"desconhecido")+' ⚠️</td></tr>'; });
+  Promise.all([loadConfig(),loadParticipantes()])
+    .then(function(){render();})
+    .catch(function(e){document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Erro: '+(e&&e.message?e.message:"desconhecido")+' ⚠️</td></tr>';});
 }
 function render() {
-  var aprovados=participantes.filter(function(p){ return p.aprovado===true||p.aprovado==="true"; });
-  var pendentes=participantes.filter(function(p){ return !p.aprovado||p.aprovado==="false"; });
-  var pagos=aprovados.filter(function(p){ return p.pago===true||p.pago==="true"; }).length;
+  var aprovados=participantes.filter(function(p){return p.aprovado===true||p.aprovado==="true";});
+  var pendentes=participantes.filter(function(p){return !p.aprovado||p.aprovado==="false";});
+  var pagos=aprovados.filter(function(p){return p.pago===true||p.pago==="true";}).length;
   var resultado=cfg.resultado||"";
-  var ganhadores=resultado?aprovados.filter(function(p){ return norm(p.palpite)===resultado; }):[];
+  var ganhadores=resultado?aprovados.filter(function(p){return norm(p.palpite)===resultado;}):[];
+  var enc=cfg.encerrado==="true";
+
   document.getElementById("col-header").textContent="APOSTA ("+aprovados.length+")";
   document.getElementById("premio-total").textContent="R$ "+(aprovados.length*10).toFixed(2).replace(".",",");
+
+  // Mensagem encerrado
+  var msgEl=document.getElementById("msg-encerrado");
+  var msgTxtEl=document.getElementById("msg-encerrado-txt");
+  if(msgEl && msgTxtEl) {
+    if(enc && resultado && ganhadores.length>0) {
+      msgTxtEl.innerHTML = ganhadores.length===1
+        ? "Muito obrigado e parabéns ao ganhador! 🍀⚽🇧🇷"
+        : "Muito obrigado e parabéns aos ganhadores! 🍀⚽🇧🇷";
+      msgEl.style.display="block";
+    } else if(enc && resultado && ganhadores.length===0) {
+      msgTxtEl.innerHTML="O valor total <strong>ACUMULOU PARA O PRÓXIMO BOLÃO!</strong> 🏆<br><br>Vocês não precisam pagar para participar do próximo. Permitida apenas 1 aposta por participante.<br><br>Em breve vamos reabrir. Boa sorte e obrigado! 🍀⚽🇧🇷";
+      msgEl.style.display="block";
+    } else {
+      msgEl.style.display="none";
+    }
+  }
+
+  // Fila admin
   var filaSec=document.getElementById("fila-section");
-  if (adminAberto) {
+  if(adminAberto){
     filaSec.style.display="block";
     document.getElementById("fila-count").textContent=pendentes.length;
-    if (pendentes.length>0) {
+    if(pendentes.length>0){
       var fh="";
       pendentes.forEach(function(p){
         fh+="<div class='fila-item'><div class='fila-info'><strong>"+esc((p.nome||"").toUpperCase())+"</strong> · <span class='setor-badge'>"+esc(p.setor||"—")+"</span><br>";
         fh+="📱 "+esc(p.whatsapp||"—")+" · Aposta: <strong>"+esc(norm(p.palpite))+"</strong><br>";
         fh+="💳 "+esc(p.forma_pagamento||"Não informado")+"<br>";
-        if(p.chave_pix){ fh+="🔑 Chave PIX: <strong id='cpix-"+p.id+"'>"+esc(p.chave_pix)+"</strong> <button onclick=\"copiarTexto('cpix-"+p.id+"',this)\" style='padding:2px 8px;background:#1a7f37;color:#fff;border:none;border-radius:4px;font-size:10px;cursor:pointer;'>📋 Copiar</button><br>"; }
-        else { fh+="🔑 Chave PIX: <em style='color:#aaa'>não informada</em><br>"; }
+        if(p.chave_pix){fh+="🔑 Chave PIX: <strong id='cpix-"+p.id+"'>"+esc(p.chave_pix)+"</strong> <button onclick=\"copiarTexto('cpix-"+p.id+"',this)\" style='padding:2px 8px;background:#1a7f37;color:#fff;border:none;border-radius:4px;font-size:10px;cursor:pointer;'>📋 Copiar</button><br>";}
+        else{fh+="🔑 Chave PIX: <em style='color:#aaa'>não informada</em><br>";}
         fh+="</div><div class='fila-btns'><button class='btn-aprovar' onclick='aprovar("+p.id+")'>✅ Pago — Aprovar</button><button class='btn-rejeitar' onclick='rejeitar("+p.id+")'>❌ Rejeitar</button></div></div>";
       });
       document.getElementById("fila-body").innerHTML=fh;
     } else {
       document.getElementById("fila-body").innerHTML="<div style='padding:12px 16px;font-size:13px;color:#888;'>✅ Nenhuma aposta aguardando aprovação.</div>";
     }
-  } else { filaSec.style.display="none"; }
+  } else {filaSec.style.display="none";}
+
+  // Prêmio detalhe
   var det=document.getElementById("premio-detalhe");
-  if (resultado&&ganhadores.length>0) {
+  if(resultado&&ganhadores.length>0){
     var total=aprovados.length*10; var pc=total/ganhadores.length;
     var txt="🏆 Ganhador(es): <strong>"+ganhadores.map(function(p){return esc((p.nome||"").toUpperCase());}).join(", ")+"</strong><br>";
     txt+=ganhadores.length>1?"💰 Prêmio por ganhador: <strong>R$ "+pc.toFixed(2).replace(".",",")+"</strong> (÷ "+ganhadores.length+")":"💰 Prêmio: <strong>R$ "+pc.toFixed(2).replace(".",",")+"</strong> — leva tudo! 🎉";
     txt+="<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong>";
-    det.innerHTML=txt; det.style.display="block";
-  } else if (resultado&&ganhadores.length===0&&aprovados.length>0) {
-    det.innerHTML="😮 Nenhum acertou o placar exato.<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong>"; det.style.display="block";
-  } else { det.style.display="none"; }
+    det.innerHTML=txt;det.style.display="block";
+  } else if(resultado&&ganhadores.length===0&&aprovados.length>0){
+    det.innerHTML="😮 Nenhum acertou o placar exato.<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong>";det.style.display="block";
+  } else {det.style.display="none";}
 
-  // Mensagem parabéns — só quando encerrado E houver ganhadores
-  var enc=cfg.encerrado==="true";
-  var m=document.getElementById("msg-encerrado");
-  if(m) {
-    var elMsg=m.querySelector(".pix-destaque");
-    if(enc && ganhadores.length>0) {
-      var msgTxt = ganhadores.length===1
-        ? "Muito obrigado e parabéns ao ganhador! 🍀⚽🇧🇷"
-        : "Muito obrigado e parabéns aos ganhadores! 🍀⚽🇧🇷";
-      if(elMsg) elMsg.textContent=msgTxt;
-      m.style.display="block";
-    } else if(enc && resultado && ganhadores.length===0) {
-      if(elMsg) elMsg.innerHTML="O valor total <strong>ACUMULOU PARA O PRÓXIMO BOLÃO!</strong> 🏆<br><br>Vocês não precisam pagar para participar do próximo. Permitida apenas 1 aposta por participante.<br><br>Em breve vamos reabrir. Boa sorte e obrigado! 🍀⚽🇧🇷";
-      m.style.display="block";
-    } else {
-      m.style.display="none";
-    }
-  }
-  if (!aprovados.length) { document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>'; return; }
+  if(!aprovados.length){document.getElementById("bolao-body").innerHTML='<tr class="lr"><td colspan="4">Nenhuma aposta aprovada ainda. ⏳</td></tr>';return;}
   var h="";
   aprovados.forEach(function(p,i){
-    var pp=norm(p.palpite); var isG=resultado&&pp===resultado;
+    var pp=norm(p.palpite);var isG=resultado&&pp===resultado;
     var bg=isG?"":(i%2===0?"#fff":"#f4f6fb");
     var hora=p.criado_em?new Date(p.criado_em).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}):"";
     var pago=p.pago===true||p.pago==="true";
@@ -453,118 +474,96 @@ function render() {
     h+="<td class='cp'>"+(pp?"<strong>"+esc(pp)+"</strong>":"<span class='np'>—</span>")+"</td>";
     h+="<td class='cd'>"+hora+"</td><td class='cpg'>"+badgePag+"</td></tr>";
   });
-  for(var e=0;e<Math.max(0,10-aprovados.length);e++){ var bg2=(aprovados.length+e)%2===0?"#fff":"#f4f6fb"; h+="<tr style='background:"+bg2+"'><td style='height:32px'></td><td></td><td></td><td></td></tr>"; }
+  for(var e=0;e<Math.max(0,10-aprovados.length);e++){var bg2=(aprovados.length+e)%2===0?"#fff":"#f4f6fb";h+="<tr style='background:"+bg2+"'><td style='height:32px'></td><td></td><td></td><td></td></tr>";}
   document.getElementById("bolao-body").innerHTML=h;
 }
-function copiarTexto(elementId, btn) {
+function copiarTexto(elementId,btn){
   var texto=document.getElementById(elementId).textContent;
-  if(navigator.clipboard){ navigator.clipboard.writeText(texto).then(function(){ btn.textContent="✅ Copiado!"; setTimeout(function(){ btn.textContent="📋 Copiar"; },2000); }); }
-  else { var el=document.createElement("textarea"); el.value=texto; document.body.appendChild(el); el.select(); document.execCommand("copy"); document.body.removeChild(el); btn.textContent="✅ Copiado!"; setTimeout(function(){ btn.textContent="📋 Copiar"; },2000); }
+  if(navigator.clipboard){navigator.clipboard.writeText(texto).then(function(){btn.textContent="✅ Copiado!";setTimeout(function(){btn.textContent="📋 Copiar";},2000);});}
+  else{var el=document.createElement("textarea");el.value=texto;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);btn.textContent="✅ Copiado!";setTimeout(function(){btn.textContent="📋 Copiar";},2000);}
 }
-function aprovar(id) {
-  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id, { method:"PATCH", headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"}, body:JSON.stringify({aprovado:true,pago:true}) })
-  .then(function(r){ if(!r.ok) throw new Error("status "+r.status); showToast("Aprovado! ✅"); setTimeout(function(){ loadTudo(); },500); })
-  .catch(function(e){ showToast("Erro ao aprovar: "+e.message); });
+function aprovar(id){
+  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id,{method:"PATCH",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({aprovado:true,pago:true})})
+  .then(function(r){if(!r.ok)throw new Error("status "+r.status);showToast("Aprovado! ✅");setTimeout(function(){loadTudo();},500);})
+  .catch(function(e){showToast("Erro ao aprovar: "+e.message);});
 }
-function rejeitar(id) {
-  if(!confirm("Rejeitar e remover este cadastro?")) return;
-  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id, { method:"DELETE", headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"} })
-  .then(function(r){ if(!r.ok) throw new Error("status "+r.status); showToast("Removido."); setTimeout(function(){ loadTudo(); },500); })
-  .catch(function(e){ showToast("Erro ao remover: "+e.message); });
+function rejeitar(id){
+  if(!confirm("Rejeitar e remover este cadastro?"))return;
+  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id,{method:"DELETE",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"}})
+  .then(function(r){if(!r.ok)throw new Error("status "+r.status);showToast("Removido.");setTimeout(function(){loadTudo();},500);})
+  .catch(function(e){showToast("Erro ao remover: "+e.message);});
 }
-function togglePagamento(id, pagoAtual) {
-  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id, { method:"PATCH", headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"}, body:JSON.stringify({pago:!pagoAtual}) })
-  .then(function(r){ if(!r.ok) throw new Error("status "+r.status); showToast(!pagoAtual?"✅ Pago!":"Removido."); setTimeout(function(){ loadTudo(); },500); })
-  .catch(function(e){ showToast("Erro: "+e.message); });
+function togglePagamento(id,pagoAtual){
+  fetch(SB_URL+"/rest/v1/participantes?id=eq."+id,{method:"PATCH",headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({pago:!pagoAtual})})
+  .then(function(r){if(!r.ok)throw new Error("status "+r.status);showToast(!pagoAtual?"✅ Pago!":"Removido.");setTimeout(function(){loadTudo();},500);})
+  .catch(function(e){showToast("Erro: "+e.message);});
 }
-function cadastrar() {
-  if(cfg.encerrado==="true"){ showToast("Bolão encerrado!"); return; }
+function cadastrar(){
+  if(cfg.encerrado==="true"){showToast("Bolão encerrado!");return;}
   var wpp=document.getElementById("f-whatsapp").value.trim().replace(/\D/g,"");
   var nome=document.getElementById("f-nome").value.trim();
   var setor=document.getElementById("f-setor").value.trim();
   var palp=document.getElementById("f-palpite").value.trim();
   var forma=document.getElementById("f-pagamento").value;
   var chave=document.getElementById("f-chave-pix")?document.getElementById("f-chave-pix").value.trim():"";
-  if(!wpp||wpp.length<8){ showToast("Digite um WhatsApp válido!"); document.getElementById("f-whatsapp").focus(); return; }
-  if(!nome){ showToast("Digite seu nome!"); document.getElementById("f-nome").focus(); return; }
-  if(!forma){ showToast("Selecione a forma de pagamento!"); document.getElementById("f-pagamento").focus(); return; }
-  if(!palp){ showToast("Digite sua aposta!"); document.getElementById("f-palpite").focus(); return; }
-  // Verificar aposta duplicada por WhatsApp
-  var duplicado = participantes.find(function(p){ return p.whatsapp === wpp; });
-  if(duplicado){ showToast("⚠️ Este WhatsApp já tem uma aposta cadastrada!"); return; }
-  var btn=document.getElementById("btn-cadastrar"); btn.disabled=true; btn.textContent="Enviando...";
-  sbFetch("/rest/v1/participantes", { method:"POST", body:JSON.stringify({ whatsapp:wpp, nome:nome, setor:setor, palpite:palp.replace(/\s*[xX]\s*/g," X ").trim(), forma_pagamento:forma, chave_pix:chave||null, pago:false, aprovado:false }) })
-  .then(function(r){ if(!r.ok) throw new Error();
-    document.getElementById("aviso-aguardando").style.display="block"; btn.style.display="none";
-    document.getElementById("f-whatsapp").value=""; document.getElementById("f-nome").value="";
-    document.getElementById("f-setor").value=""; document.getElementById("f-palpite").value="";
+  if(!wpp||wpp.length<8){showToast("Digite um WhatsApp válido!");document.getElementById("f-whatsapp").focus();return;}
+  if(!nome){showToast("Digite seu nome!");document.getElementById("f-nome").focus();return;}
+  if(!forma){showToast("Selecione a forma de pagamento!");document.getElementById("f-pagamento").focus();return;}
+  if(!palp){showToast("Digite sua aposta!");document.getElementById("f-palpite").focus();return;}
+  // Bloquear duplicata por WhatsApp
+  var dup=participantes.find(function(p){return p.whatsapp===wpp;});
+  if(dup){showToast("⚠️ Este WhatsApp já tem uma aposta cadastrada!");return;}
+  var btn=document.getElementById("btn-cadastrar");btn.disabled=true;btn.textContent="Enviando...";
+  sbFetch("/rest/v1/participantes",{method:"POST",body:JSON.stringify({whatsapp:wpp,nome:nome,setor:setor,palpite:palp.replace(/\s*[xX]\s*/g," X ").trim(),forma_pagamento:forma,chave_pix:chave||null,pago:false,aprovado:false})})
+  .then(function(r){if(!r.ok)throw new Error();
+    document.getElementById("aviso-aguardando").style.display="block";btn.style.display="none";
+    document.getElementById("f-whatsapp").value="";document.getElementById("f-nome").value="";
+    document.getElementById("f-setor").value="";document.getElementById("f-palpite").value="";
     document.getElementById("f-pagamento").value="";
     showToast("Cadastro enviado! Aguarde aprovação. ✅");
   })
-  .catch(function(){ showToast("Erro ao enviar. Tente novamente."); btn.disabled=false; btn.textContent="✅ ENVIAR CADASTRO E APOSTA"; });
+  .catch(function(){showToast("Erro ao enviar. Tente novamente.");btn.disabled=false;btn.textContent="✅ ENVIAR CADASTRO E APOSTA";});
 }
-function apagarDuplicatas() {
-  // Agrupar por WhatsApp e encontrar duplicatas
-  var vistos = {};
-  var duplicatas = [];
-  participantes.forEach(function(p) {
-    if (vistos[p.whatsapp]) {
-      duplicatas.push(p);
-    } else {
-      vistos[p.whatsapp] = true;
-    }
-  });
-  if (duplicatas.length === 0) { showToast("Nenhuma duplicata encontrada! ✅"); return; }
-  var nomes = duplicatas.map(function(p){ return p.nome + " ("+p.whatsapp+")"; }).join("\n");
-  if (!confirm("Apagar " + duplicatas.length + " aposta(s) duplicada(s)?\n\n" + nomes)) return;
-  var promises = duplicatas.map(function(p){
-    return fetch(SB_URL+"/rest/v1/participantes?id=eq."+p.id, { method:"DELETE", headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"} });
-  });
-  Promise.all(promises)
-    .then(function(){ showToast(duplicatas.length + " duplicata(s) removida(s)! ✅"); setTimeout(function(){ loadTudo(); }, 500); })
-    .catch(function(){ showToast("Erro ao remover duplicatas."); });
+function salvarEncerramento(){
+  var el=document.getElementById("adm-encerramento");var val=el?el.value:"";
+  if(!val){showToast("Selecione data e hora!");return;}
+  upsertConfig("encerramento_auto",val).then(function(){cfg.encerramento_auto=val;showToast("Encerramento salvo! ✅");iniciarCountdown();});
 }
-
-function salvarEncerramento() {
-  var el=document.getElementById("adm-encerramento"); var val=el?el.value:"";
-  if(!val){ showToast("Selecione data e hora!"); return; }
-  upsertConfig("encerramento_auto",val).then(function(){ cfg.encerramento_auto=val; showToast("Encerramento salvo! ✅"); iniciarCountdown(); });
-}
-function limparEncerramento() {
+function limparEncerramento(){
   upsertConfig("encerramento_auto","").then(function(){
-    cfg.encerramento_auto=""; var el=document.getElementById("adm-encerramento"); if(el) el.value="";
-    var bar=document.getElementById("countdown-bar"); if(bar) bar.style.display="none";
+    cfg.encerramento_auto="";var el=document.getElementById("adm-encerramento");if(el)el.value="";
+    var bar=document.getElementById("countdown-bar");if(bar)bar.style.display="none";
     showToast("Encerramento removido.");
   });
 }
 var countdownInterval=null;
-function iniciarCountdown() {
-  if(countdownInterval) clearInterval(countdownInterval);
+function iniciarCountdown(){
+  if(countdownInterval)clearInterval(countdownInterval);
   var enc=cfg.encerramento_auto;
   var bar=document.getElementById("countdown-bar");
-  if(!enc){ if(bar) bar.style.display="none"; return; }
-  function tick() {
+  if(!enc){if(bar)bar.style.display="none";return;}
+  function tick(){
     var diff=new Date(enc)-new Date();
-    if(diff<=0){ clearInterval(countdownInterval); if(bar) bar.style.display="none"; if(cfg.encerrado!=="true"){ upsertConfig("encerrado","true").then(function(){ cfg.encerrado="true"; atualizarEstadoBotao(); showToast("⏰ Apostas encerradas automaticamente!"); }); } return; }
-    if(bar) bar.style.display="block";
+    if(diff<=0){clearInterval(countdownInterval);if(bar)bar.style.display="none";if(cfg.encerrado!=="true"){upsertConfig("encerrado","true").then(function(){cfg.encerrado="true";atualizarEstadoBotao();render();showToast("⏰ Apostas encerradas automaticamente!");});}return;}
+    if(bar)bar.style.display="block";
     var ct=document.getElementById("countdown-timer");
-    if(ct){ var h=Math.floor(diff/3600000); var m=Math.floor((diff%3600000)/60000); var s=Math.floor((diff%60000)/1000); ct.textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0"); }
+    if(ct){var h=Math.floor(diff/3600000);var m=Math.floor((diff%3600000)/60000);var s=Math.floor((diff%60000)/1000);ct.textContent=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
   }
-  tick(); countdownInterval=setInterval(tick,1000);
+  tick();countdownInterval=setInterval(tick,1000);
 }
-function salvarNovaSenha() {
+function salvarNovaSenha(){
   var nova=document.getElementById("adm-nova-senha").value.trim();
-  if(!nova||nova.length<4){ showToast("Senha deve ter ao menos 4 caracteres."); return; }
-  localStorage.setItem(STORAGE_SENHA,nova); document.getElementById("adm-nova-senha").value=""; showToast("Senha atualizada! ✅");
+  if(!nova||nova.length<4){showToast("Senha deve ter ao menos 4 caracteres.");return;}
+  localStorage.setItem(STORAGE_SENHA,nova);document.getElementById("adm-nova-senha").value="";showToast("Senha atualizada! ✅");
 }
-function toggleAdminSenha() { if(adminAberto){ fecharAdmin(); return; } document.getElementById("modal-senha").classList.add("open"); setTimeout(function(){ document.getElementById("in-senha").focus(); },80); }
-function fecharModalSenha(){ document.getElementById("modal-senha").classList.remove("open"); document.getElementById("in-senha").value=""; }
-function handleOverlaySenha(e){ if(e.target===document.getElementById("modal-senha")) fecharModalSenha(); }
-function confirmarSenha(){ if(document.getElementById("in-senha").value===getSenha()){ fecharModalSenha(); abrirAdmin(); } else { showToast("Senha incorreta! ❌"); document.getElementById("in-senha").value=""; document.getElementById("in-senha").focus(); } }
-function abrirAdmin(){ adminAberto=true; document.getElementById("admin-panel").classList.add("open"); document.getElementById("admin-logado-badge").style.display="block"; loadTudo(); }
-function fecharAdmin(){ adminAberto=false; document.getElementById("admin-panel").classList.remove("open"); document.getElementById("admin-logado-badge").style.display="none"; document.getElementById("fila-section").style.display="none"; render(); }
-function showToast(msg){ var t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(function(){ t.style.display="none"; },2500); }
-document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ fecharModalSenha(); fecharAdmin(); } if(e.key==="Enter"&&document.getElementById("modal-senha").classList.contains("open")) confirmarSenha(); });
+function toggleAdminSenha(){if(adminAberto){fecharAdmin();return;}document.getElementById("modal-senha").classList.add("open");setTimeout(function(){document.getElementById("in-senha").focus();},80);}
+function fecharModalSenha(){document.getElementById("modal-senha").classList.remove("open");document.getElementById("in-senha").value="";}
+function handleOverlaySenha(e){if(e.target===document.getElementById("modal-senha"))fecharModalSenha();}
+function confirmarSenha(){if(document.getElementById("in-senha").value===getSenha()){fecharModalSenha();abrirAdmin();}else{showToast("Senha incorreta! ❌");document.getElementById("in-senha").value="";document.getElementById("in-senha").focus();}}
+function abrirAdmin(){adminAberto=true;document.getElementById("admin-panel").classList.add("open");document.getElementById("admin-logado-badge").style.display="block";loadTudo();}
+function fecharAdmin(){adminAberto=false;document.getElementById("admin-panel").classList.remove("open");document.getElementById("admin-logado-badge").style.display="none";document.getElementById("fila-section").style.display="none";render();}
+function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(function(){t.style.display="none";},2500);}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){fecharModalSenha();fecharAdmin();}if(e.key==="Enter"&&document.getElementById("modal-senha").classList.contains("open"))confirmarSenha();});
 loadTudo();
 setInterval(loadTudo,30000);
 </script>
