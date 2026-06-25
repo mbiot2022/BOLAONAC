@@ -232,7 +232,7 @@
 <div class="toast" id="toast"></div>
 <script>
 var _sp = atob("TkFPUE9TU09ESVZVTEdBUjIwMjY=");
-var _ak = "entretenimento_v11_acesso";
+var _ak = "entretenimento_v14_acesso";
 function verificarAcesso() {
   var d = document.getElementById("acesso-senha").value;
   if (d === _sp) {
@@ -280,7 +280,7 @@ function verificarAcesso() {
 
 var SB_URL = atob("aHR0cHM6Ly95aHp5cnVzY2Z4anhwZmhzZHdmei5zdXBhYmFzZS5jbw==");
 var SB_KEY = atob("ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKemRYQmhZbUZ6WlNJc0luSmxaaUk2SW5sb2VubHlkWE5qWm5ocWVIQm1hSE5rZDJaNklpd2ljbTlzWlNJNkltRnViMjRpTENKcFlYUWlPakUzT0RJeE1qYzNOemtzSW1WNGNDSTZNakE1Tnpjd016YzNPWDAuRGRnTmM2WVhsa3dqc2VJQmNtXzdoVjh2OXItc3NuVEs2bWNDNFRwcWNtdw==");
-var STORAGE_SENHA = "entretenimento_v11_senha";
+var STORAGE_SENHA = "entretenimento_v14_senha";
 var SENHA_PADRAO  = atob("bmFjMjAyNg==");
 var participantes = [];
 var cfg = { resultado:"", encerrado:"false", data_jogo:"24/06/2026 · 19:00h", numero_bolao:"2", encerramento_auto:"" };
@@ -349,8 +349,88 @@ function atualizarBannerResultado() {
   if(cfg.resultado){var p=cfg.resultado.split(" X ");bar.innerHTML="⚽ RESULTADO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia <span class='placar-final'>"+esc(p[0]||"?")+" x "+esc(p[1]||"?")+"</span> Brasil 🇧🇷";bar.style.display="block";}
   else{bar.style.display="none";}
 }
+function gerarRelatorio() {
+  var aprovados = participantes.filter(function(p){ return p.aprovado===true||p.aprovado==="true"; });
+  var resultado = cfg.resultado || "—";
+  var dataJogo  = cfg.data_jogo || "—";
+  var total     = aprovados.length * 10;
+  var ganhadores= resultado!=="—" ? aprovados.filter(function(p){ return norm(p.palpite)===resultado; }) : [];
+  var pagos     = aprovados.filter(function(p){ return p.pago===true||p.pago==="true"; }).length;
+
+  var linhas = "";
+  aprovados.forEach(function(p, i) {
+    var pp   = norm(p.palpite);
+    var hora = p.criado_em ? new Date(p.criado_em).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "";
+    var pago = p.pago===true||p.pago==="true";
+    var isG  = resultado!=="—" && pp===resultado;
+    var bg   = isG ? "#d4f5d4" : (i%2===0 ? "#fff" : "#f4f6fb");
+    var cor  = isG ? "#1a5c1a" : "#222";
+    linhas += "<tr style='background:"+bg+";color:"+cor+";'>";
+    linhas += "<td style='padding:8px 10px;font-weight:700;'>"+esc((p.nome||"").toUpperCase())+(p.setor?" <span style='background:#e8eaf0;color:#555;font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600;'>"+esc(p.setor)+"</span>":"")+(isG?" 🏆":"")+"</td>";
+    linhas += "<td style='padding:8px 10px;text-align:center;font-weight:700;'>"+esc(pp)+"</td>";
+    linhas += "<td style='padding:8px 10px;text-align:center;font-size:11px;color:#888;'>"+hora+"</td>";
+    linhas += "<td style='padding:8px 10px;text-align:center;'>"+(pago?"<span style='background:#1a7f37;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;'>✅ PAGO</span>":"<span style='background:#FF4500;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;'>⏳ PENDENTE</span>")+"</td>";
+    linhas += "</tr>";
+  });
+
+  var msgGanhadores = "";
+  if (ganhadores.length > 0) {
+    var pc = total / ganhadores.length;
+    msgGanhadores = "<div style='background:#eafbf0;border:1.5px solid #1a7f37;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#1a5c1a;font-weight:700;line-height:1.8;'>";
+    msgGanhadores += "🏆 Ganhador(es): <strong>"+ganhadores.map(function(p){return esc((p.nome||"").toUpperCase());}).join(", ")+"</strong><br>";
+    msgGanhadores += ganhadores.length>1 ? "💰 Prêmio por ganhador: <strong>R$ "+pc.toFixed(2).replace(".",",")+"</strong> (÷ "+ganhadores.length+")" : "💰 Prêmio: <strong>R$ "+pc.toFixed(2).replace(".",",")+"</strong> — leva tudo! 🎉";
+    msgGanhadores += "<br>✅ Pagamentos confirmados: <strong>"+pagos+" de "+aprovados.length+"</strong>";
+    msgGanhadores += "</div>";
+  } else {
+    msgGanhadores = "<div style='background:#fff8e1;border:1.5px solid #FFD600;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:13px;color:#b8860b;font-weight:700;line-height:1.8;'>";
+    msgGanhadores += "😮 Nenhum acertou o placar exato.<br>✅ Pagamentos: <strong>"+pagos+" de "+aprovados.length+"</strong><br>";
+    msgGanhadores += "🏆 O valor total <strong>ACUMULOU PARA O PRÓXIMO BOLÃO!</strong>";
+    msgGanhadores += "</div>";
+  }
+
+  var html = "<!DOCTYPE html><html lang='pt-BR'><head><meta charset='UTF-8'/><title>Relatório — "+esc(dataJogo)+"</title>";
+  html += "<style>body{font-family:Arial,sans-serif;background:#f0f2f5;padding:24px;}";
+  html += ".rel{max-width:700px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 2px 16px rgba(0,0,0,0.1);overflow:hidden;}";
+  html += ".rel-header{background:linear-gradient(135deg,#1a3a8f,#3A5AC8);color:#fff;padding:20px 24px;}";
+  html += ".rel-header h1{font-size:20px;margin-bottom:4px;}";
+  html += ".rel-header p{font-size:13px;opacity:0.8;}";
+  html += ".rel-resultado{background:#1a7f37;color:#fff;text-align:center;padding:10px;font-size:16px;font-weight:900;}";
+  html += ".rel-resultado span{color:#FFD600;font-size:20px;margin:0 8px;}";
+  html += ".rel-body{padding:16px 20px;}";
+  html += ".rel-sl{font-size:12px;font-weight:700;color:#888;padding:8px 0 4px;letter-spacing:1px;}";
+  html += "table{width:100%;border-collapse:collapse;}";
+  html += "thead tr{background:#3A5AC8;}thead th{color:#fff;font-size:11px;font-weight:700;padding:9px 10px;text-align:left;}";
+  html += "thead th.cp{text-align:center;}thead th.cd{text-align:center;font-size:10px;}thead th.cpg{text-align:center;}";
+  html += ".premio{background:#3A5AC8;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:8px;font-size:15px;font-weight:900;margin-top:16px;}";
+  html += ".premio span{color:#FFD600;font-size:18px;}";
+  html += ".rodape{text-align:center;font-size:11px;color:#aaa;padding:16px 0 8px;}";
+  html += "@media print{body{background:#fff;}button{display:none!important;}}";
+  html += "</style></head><body>";
+  html += "<div class='rel'>";
+  html += "<div class='rel-header'><h1>🏟️ RELATÓRIO — ENTRETENIMENTO NAC</h1><p>"+esc(dataJogo)+" · Gerado em "+new Date().toLocaleString("pt-BR")+"</p></div>";
+  if (resultado!=="—") {
+    var pr = resultado.split(" X ");
+    html += "<div class='rel-resultado'>⚽ RESULTADO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia <span>"+esc(pr[0]||"?")+" x "+esc(pr[1]||"?")+"</span> Brasil 🇧🇷</div>";
+  }
+  html += "<div class='rel-body'>";
+  html += "<div class='rel-sl'>✅ APOSTAS APROVADAS</div>";
+  html += "<table><thead><tr><th>Nome / Setor</th><th class='cp'>APOSTA ("+aprovados.length+")</th><th class='cd'>Horário</th><th class='cpg'>Pagto</th></tr></thead><tbody>";
+  html += linhas || "<tr><td colspan='4' style='text-align:center;padding:16px;color:#888;'>Nenhuma aposta aprovada.</td></tr>";
+  html += "</tbody></table>";
+  html += "<div class='premio'><span>🏆 PRÊMIO TOTAL</span><span>R$ "+total.toFixed(2).replace(".",",")+"</span></div>";
+  html += msgGanhadores;
+  html += "<div class='rodape'>Entretenimento Interno para Treinamento — NAC</div>";
+  html += "<div style='text-align:center;margin-bottom:8px;'><button onclick='window.print()' style='padding:10px 28px;background:#3A5AC8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;'>🖨️ Imprimir / Salvar PDF</button></div>";
+  html += "</div></div></body></html>";
+
+  var win = window.open("","_blank");
+  if (win) { win.document.write(html); win.document.close(); }
+  else { showToast("Permita pop-ups para gerar o relatório!"); }
+}
+
 function encerrarBolao() {
-  if(!confirm("Encerrar o bolão?"))return;
+  if(!confirm("Encerrar o bolão? Um relatório será gerado automaticamente."))return;
+  gerarRelatorio();
   upsertConfig("encerrado","true").then(function(){cfg.encerrado="true";atualizarEstadoBotao();render();showToast("Bolão encerrado! 🔒");});
 }
 function reabrirBolao() {
@@ -470,7 +550,7 @@ function render() {
     var pago=p.pago===true||p.pago==="true";
     var badgePag=adminAberto?(pago?"<span class='badge-pago' onclick='togglePagamento("+p.id+",true)'>✅ PAGO</span>":"<span class='badge-pendente' onclick='togglePagamento("+p.id+",false)'>⏳ PEND.</span>"):(pago?"<span class='badge-pago'>✅ PAGO</span>":"<span class='badge-pendente' style='cursor:default'>⏳ PEND.</span>");
     h+="<tr"+(isG?" class='ganhador'":"")+(bg?" style='background:"+bg+"'":"")+">";
-    h+="<td>"+esc((p.nome||"").toUpperCase())+(p.setor?" <span class='setor-badge'>"+esc(p.setor)+"</span>":"")+"</td>";
+    h+="<td>"+esc((p.nome||"").toUpperCase())+(p.setor?" <span class='setor-badge'>"+esc(p.setor)+"</span>":"")+(adminAberto?"<br><span style='font-size:10px;font-weight:400;color:#555;'>📱 "+esc(p.whatsapp||"—")+"</span>":"")+(adminAberto&&p.chave_pix?"<br><span style='font-size:10px;font-weight:400;color:#1a7f37;'>🔑 "+esc(p.chave_pix)+" <button onclick=\"navigator.clipboard.writeText('"+esc(p.chave_pix)+"').then(function(){showToast('Chave copiada! 📋');})\" style='padding:1px 6px;background:#1a7f37;color:#fff;border:none;border-radius:4px;font-size:9px;cursor:pointer;margin-left:4px;'>📋</button></span>":"")+"</td>";
     h+="<td class='cp'>"+(pp?"<strong>"+esc(pp)+"</strong>":"<span class='np'>—</span>")+"</td>";
     h+="<td class='cd'>"+hora+"</td><td class='cpg'>"+badgePag+"</td></tr>";
   });
